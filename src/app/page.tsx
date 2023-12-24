@@ -8,7 +8,6 @@ export default async function Home() {
   const {
     data: { user },
   } = await client.auth.getUser();
-  // a
 
   return (
     <main>
