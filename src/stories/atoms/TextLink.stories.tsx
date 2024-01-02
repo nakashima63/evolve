@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { TextLink } from "../../components/atoms/TextLink";
+import { TextLink } from "@/components/atoms/TextLink";
 
 const meta: Meta<typeof TextLink> = {
   component: TextLink,

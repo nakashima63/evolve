@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { UserIcon } from "../../components/atoms/UserIcon";
+import { UserIcon } from "@/components/atoms/UserIcon";
 
 const meta: Meta<typeof UserIcon> = {
   component: UserIcon,
