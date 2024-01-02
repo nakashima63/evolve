@@ -1,6 +1,6 @@
-import { HeaderLogo } from "../atoms/HeaderLogo";
-import { TextLink } from "../atoms/TextLink";
-import { UserIcon } from "../atoms/UserIcon";
+import { HeaderLogo } from "@/components/atoms/HeaderLogo";
+import { TextLink } from "@/components/atoms/TextLink";
+import { UserIcon } from "@/components/atoms/UserIcon";
 
 export const Header = () => {
   return (
