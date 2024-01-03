@@ -2,6 +2,7 @@ import Link from "next/link";
 import { DropdownMenuItem as DropdownMenuItemShadcn } from "@/components/ui/dropdown-menu";
 
 interface Props {
+  key: number;
   label: string;
   href: string;
 }
