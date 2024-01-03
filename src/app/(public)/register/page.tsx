@@ -2,6 +2,10 @@ import React from "react";
 import { cookies } from "next/headers";
 import { createClient } from "@/libs/supabase/server";
 import { redirect } from "next/navigation";
+import { Container } from "@/components/atoms/Container";
+import { FormItem } from "@/components/molecules/FormItem";
+import { InputForm } from "@/components/atoms/InputForm";
+import { Button } from "@/components/atoms/Button";
 
 const RegisterPage = () => {
   const signUp = async (formData: FormData) => {
@@ -10,7 +14,6 @@ const RegisterPage = () => {
     const password = formData.get("password") as string;
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
-    console.log(email);
 
     const { error } = await supabase.auth.signUp({
       email,
@@ -26,13 +29,19 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <form action={signUp}>
-        <input type="email" name="email" required />
-        <input type="password" name="password" />
-        <button type="submit">登録</button>
-      </form>
-    </div>
+    <Container>
+      <div className="p-4">
+        <form action={signUp} className="flex flex-col space-y-4">
+          <FormItem formId="email" label="Email">
+            <InputForm id="email" name="email" type="email" required />
+          </FormItem>
+          <FormItem formId="password" label="Password">
+            <InputForm id="password" name="password" type="password" required />
+          </FormItem>
+          <Button type="submit" label="登録" className="primary" />
+        </form>
+      </div>
+    </Container>
   );
 };
 
