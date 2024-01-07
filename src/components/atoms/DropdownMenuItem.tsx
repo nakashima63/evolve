@@ -1,16 +1,10 @@
-import Link from "next/link";
 import { DropdownMenuItem as DropdownMenuItemShadcn } from "@/components/ui/dropdown-menu";
+import { ReactNode } from "react";
 
 interface Props {
-  key: number;
-  label: string;
-  href: string;
+  children: ReactNode;
 }
 
-export const DropdownMenuItem = ({ label, href }: Props) => {
-  return (
-    <DropdownMenuItemShadcn>
-      <Link href={href}>{label}</Link>
-    </DropdownMenuItemShadcn>
-  );
+export const DropdownMenuItem = ({ children }: Props) => {
+  return <DropdownMenuItemShadcn>{children}</DropdownMenuItemShadcn>;
 };
