@@ -15,37 +15,39 @@ interface Props {
 
 export const Header = ({ isAuthenticated }: Props) => {
   return (
-    <header className="w-full h-24 bg-zinc-100 text-zinc-500 flex justify-between items-center">
-      <div className="ml-4 flex items-center">
-        <HeaderLogo />
-        <div className="ml-4 space-x-4">
-          <TextLink href="/" text="ダッシュボード" />
-          <TextLink href="/" text="カレンダー" />
-          <TextLink href="/" text="応募情報管理" />
+    <header className="w-full h-24 bg-zinc-100 text-zinc-500">
+      <div className="flex justify-between items-center max-w-[900px] mx-auto px-2">
+        <div className="ml-4 flex items-center">
+          <HeaderLogo />
+          <div className="ml-4 space-x-4">
+            <TextLink href="/" text="ダッシュボード" />
+            <TextLink href="/" text="カレンダー" />
+            <TextLink href="/" text="応募情報管理" />
+          </div>
         </div>
-      </div>
-      <div className="mr-4">
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <UserIcon />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel text="メニュー" />
-            <DropdownMenuSeparator />
-            {isAuthenticated() ? (
-              <LogoutButton />
-            ) : (
-              <>
-                <DropdownMenuItem>
-                  <TextLink href="/login" text="ログイン" />
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <TextLink href="/register" text="ユーザ登録" />
-                </DropdownMenuItem>
-              </>
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="mr-4 flex items-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <UserIcon />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel text="メニュー" />
+              <DropdownMenuSeparator />
+              {isAuthenticated() ? (
+                <LogoutButton />
+              ) : (
+                <>
+                  <DropdownMenuItem>
+                    <TextLink href="/login" text="ログイン" />
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <TextLink href="/register" text="ユーザ登録" />
+                  </DropdownMenuItem>
+                </>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
     </header>
   );
