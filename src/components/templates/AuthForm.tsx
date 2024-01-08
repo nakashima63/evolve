@@ -3,26 +3,38 @@ import { Form } from "@/components/organisms/Form";
 import { FormItem } from "@/components/molecules/FormItem";
 import { InputForm } from "@/components/atoms/InputForm";
 import { Button } from "@/components/atoms/Button";
+import { TextLink } from "@/components/atoms/TextLink";
 
 interface Props {
   action: (formData: FormData) => Promise<void>;
-  pageType: "register" | "logIn";
+  pageType: "register" | "login";
 }
 
 const title = {
   register: "アカウントを作成",
-  logIn: "ログイン",
+  login: "ログイン",
 };
 
 const buttonLabel = {
   register: "登録",
-  logIn: "ログイン",
+  login: "ログイン",
+};
+
+const link = {
+  register: {
+    url: "/login",
+    text: "ログイン",
+  },
+  login: {
+    url: "/register",
+    text: "アカウントを作成",
+  },
 };
 
 export const AuthForm = ({ action, pageType }: Props) => {
   return (
     <Container>
-      <div className="w-3/4 mt-4">
+      <div className="mt-4">
         <h1 className="text-2xl text-zinc-500">{title[pageType]}</h1>
         <div className="mt-4">
           <Form action={action}>
@@ -45,6 +57,9 @@ export const AuthForm = ({ action, pageType }: Props) => {
               />
             </div>
           </Form>
+        </div>
+        <div className="mt-4 text-center">
+          <TextLink href={link[pageType].url} text={link[pageType].text} />
         </div>
       </div>
     </Container>

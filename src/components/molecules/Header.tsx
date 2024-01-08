@@ -7,13 +7,13 @@ import { DropdownMenuContent } from "@/components/atoms/DropdownMenuContent";
 import { DropdownMenuItem } from "@/components/atoms/DropdownMenuItem";
 import { DropdownMenuSeparator } from "@/components/atoms/DropdownMenuSeparator";
 import { DropdownMenuLabel } from "@/components/atoms/DropdownMenuLabel";
-import { DropdownMenuItemInterface } from "@/types/DropdownMenuInterface";
+import { LogoutButton } from "@/components/atoms/LogoutButton";
 
 interface Props {
-  items: DropdownMenuItemInterface[];
+  isAuthenticated: () => boolean;
 }
 
-export const Header = ({ items }: Props) => {
+export const Header = ({ isAuthenticated }: Props) => {
   return (
     <header className="w-full h-24 bg-zinc-100 text-zinc-500 flex justify-between items-center">
       <div className="ml-4 flex items-center">
@@ -32,13 +32,18 @@ export const Header = ({ items }: Props) => {
           <DropdownMenuContent>
             <DropdownMenuLabel text="メニュー" />
             <DropdownMenuSeparator />
-            {items.map((item, index) => (
-              <DropdownMenuItem
-                key={index}
-                href={item.href}
-                label={item.label}
-              />
-            ))}
+            {isAuthenticated() ? (
+              <LogoutButton />
+            ) : (
+              <>
+                <DropdownMenuItem>
+                  <TextLink href="/login" text="ログイン" />
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <TextLink href="/register" text="ユーザ登録" />
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
