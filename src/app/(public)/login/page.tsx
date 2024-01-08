@@ -1,11 +1,11 @@
 import React from "react";
 import { cookies } from "next/headers";
 import { createClient } from "@/libs/supabase/server";
-import { redirect } from "next/navigation";
 import { AuthForm } from "@/components/templates/AuthForm";
+import { redirect } from "next/navigation";
 
-const RegisterPage = () => {
-  const signUp = async (formData: FormData): Promise<void> => {
+const LoginPage = () => {
+  const Login = async (formData: FormData): Promise<void> => {
     "use server";
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -14,7 +14,7 @@ const RegisterPage = () => {
     const supabase = createClient(cookieStore);
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -23,13 +23,13 @@ const RegisterPage = () => {
       }
     } catch (error) {
       console.error(error);
-      return redirect("/register?message=Could not register user.");
+      return redirect("/login?message=Could not login user.");
     }
 
     return redirect("/dashboard");
   };
 
-  return <AuthForm action={signUp} pageType="register" />;
+  return <AuthForm action={Login} pageType="login" />;
 };
 
-export default RegisterPage;
+export default LoginPage;

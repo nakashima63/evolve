@@ -1,8 +1,19 @@
 import { HeaderLogo } from "@/components/atoms/HeaderLogo";
 import { TextLink } from "@/components/atoms/TextLink";
 import { UserIcon } from "@/components/atoms/UserIcon";
+import { DropdownMenu } from "@/components/atoms/DropdownMenu";
+import { DropdownMenuTrigger } from "@/components/atoms/DropdownMenuTrigger";
+import { DropdownMenuContent } from "@/components/atoms/DropdownMenuContent";
+import { DropdownMenuItem } from "@/components/atoms/DropdownMenuItem";
+import { DropdownMenuSeparator } from "@/components/atoms/DropdownMenuSeparator";
+import { DropdownMenuLabel } from "@/components/atoms/DropdownMenuLabel";
+import { LogoutButton } from "@/components/atoms/LogoutButton";
 
-export const Header = () => {
+interface Props {
+  isAuthenticated: () => boolean;
+}
+
+export const Header = ({ isAuthenticated }: Props) => {
   return (
     <header className="w-full h-24 bg-zinc-100 text-zinc-500 flex justify-between items-center">
       <div className="ml-4 flex items-center">
@@ -14,7 +25,27 @@ export const Header = () => {
         </div>
       </div>
       <div className="mr-4">
-        <UserIcon />
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <UserIcon />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel text="メニュー" />
+            <DropdownMenuSeparator />
+            {isAuthenticated() ? (
+              <LogoutButton />
+            ) : (
+              <>
+                <DropdownMenuItem>
+                  <TextLink href="/login" text="ログイン" />
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <TextLink href="/register" text="ユーザ登録" />
+                </DropdownMenuItem>
+              </>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </header>
   );
