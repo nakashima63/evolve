@@ -21,8 +21,8 @@ export const Layout = ({ children }: Props) => {
     return user;
   };
 
-  const isAuthenticated = () => {
-    const user = fetchUser();
+  const isAuthenticated = async () => {
+    const user = await fetchUser();
     return user !== null;
   };
 

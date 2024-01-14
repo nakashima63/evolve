@@ -10,7 +10,7 @@ import { DropdownMenuLabel } from "@/components/atoms/DropdownMenuLabel";
 import { LogoutButton } from "@/components/atoms/LogoutButton";
 
 interface Props {
-  isAuthenticated: () => boolean;
+  isAuthenticated: () => Promise<boolean>;
 }
 
 export const Header = ({ isAuthenticated }: Props) => {

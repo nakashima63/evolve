@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 interface Props {
-  action: (formData: FormData) => Promise<void>;
+  action: () => void;
   children: ReactNode;
 }
 
