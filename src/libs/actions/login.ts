@@ -28,7 +28,7 @@ export const Login = async (prevState: State, formData: FormData) => {
 
   if (!validatedFields.success) {
     return {
-      errors: validatedFields.error.flatten(),
+      errors: validatedFields.error.flatten().fieldErrors,
       message: "入力内容が不正です",
     };
   }

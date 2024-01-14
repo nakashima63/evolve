@@ -42,6 +42,8 @@ const link = {
 export const AuthForm = ({ pageType }: Props) => {
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(action[pageType], initialState);
+  console.log(state);
+
   return (
     <Container>
       <div className="mt-4">

@@ -8,12 +8,26 @@ import { DropdownMenuItem } from "@/components/atoms/DropdownMenuItem";
 import { DropdownMenuSeparator } from "@/components/atoms/DropdownMenuSeparator";
 import { DropdownMenuLabel } from "@/components/atoms/DropdownMenuLabel";
 import { LogoutButton } from "@/components/atoms/LogoutButton";
+import { createClient } from "@/libs/supabase/server";
+import { cookies } from "next/headers";
 
-interface Props {
-  isAuthenticated: () => Promise<boolean>;
-}
+export const Header = async () => {
+  const cookieStore = cookies();
+  const fetchClient = async () => {
+    const supabase = await createClient(cookieStore);
+    return supabase;
+  };
 
-export const Header = ({ isAuthenticated }: Props) => {
+  const fetchUser = async () => {
+    const client = await fetchClient();
+    const {
+      data: { user },
+    } = await client.auth.getUser();
+    return user;
+  };
+
+  const authUser = await fetchUser();
+
   return (
     <header className="w-full h-24 bg-zinc-100 text-zinc-500">
       <div className="flex justify-between items-center max-w-[900px] mx-auto px-2">
@@ -33,7 +47,7 @@ export const Header = ({ isAuthenticated }: Props) => {
             <DropdownMenuContent>
               <DropdownMenuLabel text="メニュー" />
               <DropdownMenuSeparator />
-              {isAuthenticated() ? (
+              {authUser ? (
                 <LogoutButton />
               ) : (
                 <>

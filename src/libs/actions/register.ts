@@ -27,7 +27,6 @@ export const Register = async (prevState: State, formData: FormData) => {
   });
 
   if (!validatedFields.success) {
-    console.error(validatedFields.error.flatten().fieldErrors);
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "入力内容が不正です",
@@ -43,7 +42,6 @@ export const Register = async (prevState: State, formData: FormData) => {
       password,
     });
   } catch (error) {
-    console.error(error);
     return {
       message: "登録に失敗しました",
     };
