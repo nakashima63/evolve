@@ -10,7 +10,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    action: (formData: FormData) => Promise.resolve(),
     pageType: "register",
   },
 };
