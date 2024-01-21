@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export const config = {
-  // cssを除外する
   matcher: "/:path*",
 };
 

@@ -48,7 +48,7 @@ export const AuthForm = ({ pageType }: Props) => {
         <h1 className="text-2xl text-zinc-500">{title[pageType]}</h1>
         <div className="mt-4">
           {/* TODO: Formコンポーネントに置き換え */}
-          <form action={dispatch}>
+          <form action={dispatch} className="flex flex-col space-y-4">
             <FormItem formId="email" label="Email">
               <InputForm id="email" name="email" type="email" required />
               <div id="email-error" aria-live="polite" aria-atomic="true">
