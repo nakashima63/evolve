@@ -17,7 +17,7 @@ export interface State {
     email?: string[];
     password?: string[];
   };
-  message?: string | null;
+  message: string;
 }
 
 export const Register = async (prevState: State, formData: FormData) => {

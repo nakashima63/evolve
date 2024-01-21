@@ -1,6 +1,5 @@
 "use client";
 import { Container } from "@/components/atoms/Container";
-import { Form } from "@/components/organisms/Form";
 import { FormItem } from "@/components/molecules/FormItem";
 import { InputForm } from "@/components/atoms/InputForm";
 import { Button } from "@/components/atoms/Button";
@@ -40,16 +39,16 @@ const link = {
 };
 
 export const AuthForm = ({ pageType }: Props) => {
-  const initialState = { message: null, errors: {} };
+  const initialState = { message: "", errors: {} };
   const [state, dispatch] = useFormState(action[pageType], initialState);
-  console.log(state);
 
   return (
     <Container>
       <div className="mt-4">
         <h1 className="text-2xl text-zinc-500">{title[pageType]}</h1>
         <div className="mt-4">
-          <Form action={dispatch}>
+          {/* TODO: Formコンポーネントに置き換え */}
+          <form action={dispatch}>
             <FormItem formId="email" label="Email">
               <InputForm id="email" name="email" type="email" required />
               <div id="email-error" aria-live="polite" aria-atomic="true">
@@ -67,6 +66,13 @@ export const AuthForm = ({ pageType }: Props) => {
                 type="password"
                 required
               />
+              <div id="password-error" aria-live="polite" aria-atomic="true">
+                {state.errors?.password?.flat().map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    {error}
+                  </p>
+                ))}
+              </div>
             </FormItem>
             <div className="flex justify-center">
               <Button
@@ -75,7 +81,7 @@ export const AuthForm = ({ pageType }: Props) => {
                 className="primary"
               />
             </div>
-          </Form>
+          </form>
         </div>
         <div className="mt-4 text-center">
           <TextLink href={link[pageType].url} text={link[pageType].text} />

@@ -17,7 +17,7 @@ export interface State {
     email?: string[];
     password?: string[];
   };
-  message?: string | null;
+  message: string;
 }
 
 export const Login = async (prevState: State, formData: FormData) => {
@@ -42,7 +42,6 @@ export const Login = async (prevState: State, formData: FormData) => {
       password,
     });
   } catch (error) {
-    console.error(error);
     return {
       message: "ログインに失敗しました",
     };
