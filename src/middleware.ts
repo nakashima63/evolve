@@ -4,7 +4,9 @@ export const config = {
   matcher: "/:path*",
 };
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next();
+
   // 本番環境のみBasic認証を要求
   if (process.env.NODE_ENV === "production") {
     const basicAuth = req.headers.get("authorization");
@@ -16,7 +18,7 @@ export function middleware(req: NextRequest) {
         user === process.env.BASIC_AUTH_USER &&
         password === process.env.BASIC_AUTH_PASSWORD
       ) {
-        return NextResponse.next();
+        return res;
       }
     }
 
@@ -27,7 +29,6 @@ export function middleware(req: NextRequest) {
       },
     });
   }
-
   // 開発環境では認証をスキップ
-  return NextResponse.next();
+  return res;
 }
