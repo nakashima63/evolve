@@ -4,6 +4,7 @@ import { z } from "zod";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { createClient } from "@/libs/supabase/server";
+import prisma from "@/libs/prisma/prisma";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -37,10 +38,19 @@ export const Register = async (prevState: State, formData: FormData) => {
   const supabase = createClient(cookieStore);
   const { email, password } = validatedFields.data;
   try {
-    await supabase.auth.signUp({
+    const { data } = await supabase.auth.signUp({
       email,
       password,
     });
+
+    if (data?.user) {
+      await prisma.user.create({
+        data: {
+          id: data.user.id,
+          name: email.split("@")[0],
+        },
+      });
+    }
   } catch (error) {
     return {
       message: "登録に失敗しました",

@@ -1,0 +1,22 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+model Profile {
+  id         String   @id @db.Uuid
+  userName   String   @db.VarChar(255)
+  createdAt  DateTime @default(now())
+  createdBy  String   @db.Uuid
+  updatedAt  DateTime @default(now())
+  updatedBy  String   @db.Uuid
+  deletedAt  DateTime?
+
+  @@map("profiles")
+}
