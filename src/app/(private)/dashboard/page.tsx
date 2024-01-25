@@ -1,5 +1,3 @@
-// authuerを取得して制限をかける
-
 const DashboardPage = () => {
   return (
     <div>
