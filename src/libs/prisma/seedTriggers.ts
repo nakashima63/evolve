@@ -2,7 +2,7 @@ import postgres from "postgres";
 import "dotenv/config";
 
 const dbUrl = process.env.DATABASE_URL;
-console.log(dbUrl);
+
 if (!dbUrl) {
   throw new Error("Couldn't find db url");
 }

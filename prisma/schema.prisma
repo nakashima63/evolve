@@ -15,6 +15,12 @@ enum Role {
 model Profile {
   id        String   @id @db.Uuid
   role      Role     @default(USER)
+  name      String   @db.VarChar(40) @default("未設定")
+  createdAt DateTime @default(now())
+  createdBy String?   @db.Uuid
+  updatedAt DateTime @default(now())
+  updatedBy String?   @db.Uuid
+  deletedAt DateTime?
 
   @@map("profile")
 }
