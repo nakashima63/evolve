@@ -9,7 +9,10 @@
     "lint": "next lint --no-cache",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}' && next lint --fix",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "migrate": "bash ./.bash/migrate.sh",
+    "migrate:create-only": "bash ./.bash/migrate-create-only.sh",
+    "migrate:deploy": "bash ./.bash/migrate-deploy.sh"
   },
   "husky": {
     "hooks": {
@@ -24,18 +27,22 @@
     ]
   },
   "dependencies": {
+    "@prisma/client": "^5.8.1",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "dotenv": "^16.4.1",
     "lucide-react": "^0.303.0",
     "next": "14.0.4",
+    "postgres": "^3.4.3",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
+    "tsx": "^4.7.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -52,6 +59,7 @@
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "autoprefixer": "^10.0.1",
+    "dotenv-cli": "^7.3.0",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "^9.1.0",
@@ -61,6 +69,7 @@
     "postcss": "^8",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.9",
+    "prisma": "^5.8.1",
     "storybook": "^7.6.6",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
