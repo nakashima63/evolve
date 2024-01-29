@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { FormItem } from "@/components/molecules/FormItem";
+import { FormItem } from "@/components/molecules/forms/FormItem";
 import { InputForm } from "@/components/atoms/InputForm";
 
 const meta: Meta<typeof FormItem> = {

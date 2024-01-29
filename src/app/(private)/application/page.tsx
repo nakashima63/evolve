@@ -1,6 +1,6 @@
 import { Container } from "@/components/atoms/Container";
-import { Tile } from "@/components/atoms/Tile";
-import { ButtonLink } from "@/components/atoms/ButtonLink";
+import { Tile } from "@/components/organisms/applications/Tile";
+import { ButtonLink } from "@/components/molecules/ButtonLink";
 
 const IndexPage = () => {
   return (

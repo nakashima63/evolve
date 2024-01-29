@@ -1,6 +1,6 @@
 "use client";
 import { Container } from "@/components/atoms/Container";
-import { FormItem } from "@/components/molecules/FormItem";
+import { FormItem } from "@/components/molecules/forms/FormItem";
 import { InputForm } from "@/components/atoms/InputForm";
 import { Button } from "@/components/atoms/Button";
 import { TextLink } from "@/components/atoms/TextLink";

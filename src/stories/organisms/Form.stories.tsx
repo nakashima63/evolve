@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { Form } from "@/components/organisms/Form";
+import { Form } from "@/components/atoms/Form";
 
 const meta: Meta<typeof Form> = {
   component: Form,

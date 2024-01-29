@@ -8,6 +8,7 @@ export const Create = async () => {
   try {
     await prisma.application.create({
       data: {
+        userId: "",
         companyName: "hoge",
         status: null,
         aspirationLevel: null,

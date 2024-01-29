@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { Tile } from "@/components/atoms/Tile";
+import { Tile } from "@/components/organisms/applications/Tile";
 
 const meta: Meta<typeof Tile> = {
   component: Tile,

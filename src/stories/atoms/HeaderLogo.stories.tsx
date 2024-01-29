@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { HeaderLogo } from "@/components/atoms/HeaderLogo";
+import { HeaderLogo } from "@/components/molecules/HeaderLogo";
 
 const meta: Meta<typeof HeaderLogo> = {
   component: HeaderLogo,
