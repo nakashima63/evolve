@@ -2,7 +2,7 @@
 CREATE TYPE "Role" AS ENUM ('ADMIN', 'USER');
 
 -- CreateEnum
-CREATE TYPE "Status" AS ENUM ('InformationGathering', 'WaitingInfomation', 'FirstInterview', 'SecondInterview', 'ThirdInterview');
+CREATE TYPE "Status" AS ENUM ('InformationGathering', 'Applied', 'FirstInterview', 'SecondInterview', 'ThirdInterview', 'Offer', 'Rejected', 'Retired', 'Accepted', 'NotAccepted', 'Waiting', 'Other');
 
 -- CreateEnum
 CREATE TYPE "AspirationLevel" AS ENUM ('High', 'Middle', 'Low');
