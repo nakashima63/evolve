@@ -50,11 +50,13 @@ export const ApplicationForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     setFormErrors({ errors: {} });
     const formElement = e.currentTarget as HTMLFormElement;
     const userId = (await createClient().auth.getUser()).data.user?.id;
     const formData = new FormData(formElement);
     formData.append("userId", userId ?? "");
+
     const res = await fetch("/api/application/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
