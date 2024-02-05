@@ -10,7 +10,6 @@ export const GET = async (req: NextRequest) => {
   try {
     const url = new URL(req.url);
     const userId = url.searchParams.get("userId");
-    console.log(userId);
     if (!userId) {
       return NextResponse.json(
         { message: "ユーザーが取得できませんでした", applications: [] },
@@ -41,7 +40,6 @@ export const GET = async (req: NextRequest) => {
       { status: 200 },
     );
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { message: "応募情報一覧の取得に失敗しました", applications: [] },
       { status: 500 },
