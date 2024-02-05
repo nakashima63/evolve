@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { Layout } from "../../components/organisms/Layout";
+import { Layout } from "@/components/organisms/Layout";
 
 const meta: Meta<typeof Layout> = {
   component: Layout,
