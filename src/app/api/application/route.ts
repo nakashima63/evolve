@@ -1,6 +1,11 @@
 import prisma from "@/libs/prisma/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * 応募情報一覧取得API
+ * @param req NextRequest
+ * @return NextResponse
+ */
 export const GET = async (req: NextRequest) => {
   try {
     const url = new URL(req.url);

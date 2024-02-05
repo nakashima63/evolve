@@ -2,6 +2,9 @@ import { Status, AspirationLevel } from "@prisma/client";
 import { PHONE_NUMBER_REGEX } from "@/consts/regexPattern";
 import { z } from "zod";
 
+/**
+ * 応募情報登録時のバリデーションスキーマ
+ */
 export const CreateApplicationSchema = z.object({
   userId: z.string(),
   companyName: z

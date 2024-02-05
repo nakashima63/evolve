@@ -3,6 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { Application } from "@prisma/client";
 import { CreateApplicationSchema } from "@/schemas/Applications/CreateApplicationSchema";
 
+/**
+ * 応募情報登録API
+ * @param req NextRequest
+ * @return NextResponse
+ */
 export const POST = async (req: NextRequest) => {
   try {
     const validatedFields = CreateApplicationSchema.safeParse(await req.json());
