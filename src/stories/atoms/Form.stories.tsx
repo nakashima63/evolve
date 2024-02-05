@@ -1,8 +1,8 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { Footer } from "../../components/molecules/Footer";
+import { Form } from "@/components/atoms/Form";
 
-const meta: Meta<typeof Footer> = {
-  component: Footer,
+const meta: Meta<typeof Form> = {
+  component: Form,
 };
 
 export default meta;

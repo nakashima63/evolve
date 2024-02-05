@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { AuthForm } from "@/components/templates/AuthForm";
+import { AuthForm } from "@/components/organisms/AuthForm";
 
 const meta: Meta<typeof AuthForm> = {
   component: AuthForm,
