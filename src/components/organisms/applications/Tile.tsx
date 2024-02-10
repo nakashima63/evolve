@@ -1,7 +1,9 @@
 import { Status } from "@prisma/client";
+import Link from "next/link";
 
 interface Props {
   application: {
+    id: string;
     companyName: string;
     status: Status;
     workLocation: string;
@@ -26,15 +28,17 @@ const enumLabel = {
 
 export const Tile = ({ application }: Props) => {
   return (
-    <div className="w-full max-w-[260px] mx-auto">
-      <div className="border border-green-600 border-solid rounded-md hover:shadow-none hover:translate-y-1 transition-all duration-300 p-2 text-xs">
-        <div className="mt-2">
-          <p className="mb-2 font-bold">{application.companyName}</p>
-          <p className="mb-2">{enumLabel[application.status] || "-"}</p>
-          <p className="mb-2">{application.workLocation || "-"}</p>
-          <p>{application.applicationRoute || "-"}</p>
+    <Link href={`application/${application.id}`}>
+      <div className="w-full max-w-[260px] mx-auto">
+        <div className="border border-green-600 border-solid rounded-md hover:shadow-none hover:translate-y-1 transition-all duration-300 p-2 text-xs">
+          <div className="mt-2">
+            <p className="mb-2 font-bold">{application.companyName}</p>
+            <p className="mb-2">{enumLabel[application.status] || "-"}</p>
+            <p className="mb-2">{application.workLocation || "-"}</p>
+            <p>{application.applicationRoute || "-"}</p>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
