@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { FormItem } from "@/components/molecules/forms/FormItem";
 import { InputForm } from "@/components/atoms/InputForm";
 import { Button } from "@/components/atoms/Button";
 import { createClient } from "@/libs/supabase/client";
 import { useRouter } from "next/navigation";
 import { FormError } from "@/components/molecules/forms/FormError";
+import { Box } from "@/components/atoms/Box";
 
 const statusOptions = [
   { value: "InformationGathering", label: "情報収集中" },
@@ -75,7 +76,7 @@ export const ApplicationForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="border border-green-600 border-solid rounded-md p-4 mt-4 grid grid-cols-12 gap-4">
+      <Box>
         <FormItem formId="companyName" label="企業名" size="12">
           <InputForm id="companyName" name="companyName" required />
           <FormError
@@ -171,7 +172,7 @@ export const ApplicationForm = () => {
         <div className="col-span-12 flex justify-center">
           <Button type="submit" label="登録" className="primary" />
         </div>
-      </div>
+      </Box>
     </form>
   );
 };
