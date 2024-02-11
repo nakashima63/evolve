@@ -11,8 +11,7 @@ export const Button = ({ type, label, className, onClick }: Props) => {
   const buttonColor = cn({
     "text-green-600 border-green-600 hover:bg-green-600":
       className === "primary",
-    "text-orange-600 border-orange-600 hover:bg-orange-600":
-      className === "secondary",
+    "text-sky-600 border-sky-600 hover:bg-sky-600": className === "secondary",
     "text-red-600 border-red-600 hover:bg-red-600": className === "danger",
   });
 

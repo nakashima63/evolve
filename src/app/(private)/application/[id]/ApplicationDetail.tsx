@@ -1,6 +1,4 @@
 import React from "react";
-import { Box } from "@/components/atoms/Box";
-import { ButtonLink } from "@/components/molecules/ButtonLink";
 import { DataItem } from "@/components/molecules/displays/DataItem";
 import { AspirationLevel, Status } from "@prisma/client";
 
@@ -58,7 +56,7 @@ const fetchApplication = async (id: string) => {
 export const ApplicationDetail = async ({ id }: Props) => {
   const application: Application = await fetchApplication(id);
   return (
-    <Box>
+    <>
       <DataItem title="企業名" size="12">
         {application.companyName || "-"}
       </DataItem>
@@ -89,9 +87,6 @@ export const ApplicationDetail = async ({ id }: Props) => {
       <DataItem title="連絡先電話番号" size="6">
         {application.contactPhoneNumber || "-"}
       </DataItem>
-      <div className="col-span-12 flex justify-center">
-        <ButtonLink label="編集" href={`${id}/edit`} />
-      </div>
-    </Box>
+    </>
   );
 };
