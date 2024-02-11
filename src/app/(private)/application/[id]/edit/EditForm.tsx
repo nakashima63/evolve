@@ -5,7 +5,7 @@ import { Box } from "@/components/atoms/Box";
 import { Button } from "@/components/atoms/Button";
 import { ApplicationForm } from "@/components/organisms/applications/ApplicationForm";
 import { useRouter } from "next/navigation";
-import { AspirationLevel, Status } from "@prisma/client";
+import { ApplicationInterface } from "@/types/interfaces/ApplicationInterface";
 
 interface FormErrors {
   errors: {
@@ -22,22 +22,9 @@ interface FormErrors {
   };
 }
 
-interface Application {
-  id: string;
-  companyName: string;
-  status: Status;
-  aspirationLevel: AspirationLevel;
-  applicationRoute: string;
-  workLocation: string;
-  estimatedIncome: number;
-  companyDetail: string;
-  contactEmail: string;
-  contactPhoneNumber: string;
-}
-
 interface Props {
   id: string;
-  application: Application;
+  application: ApplicationInterface;
 }
 
 export const EditForm = ({ id, application }: Props) => {

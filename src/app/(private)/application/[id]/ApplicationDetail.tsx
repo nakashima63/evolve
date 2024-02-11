@@ -1,43 +1,11 @@
 import React from "react";
 import { DataItem } from "@/components/molecules/displays/DataItem";
-import { AspirationLevel, Status } from "@prisma/client";
-
-const statusOptions = [
-  { value: "InformationGathering", label: "情報収集中" },
-  { value: "Applied", label: "応募済み" },
-  { value: "FirstInterview", label: "一次面接" },
-  { value: "SecondInterview", label: "二次面接" },
-  { value: "ThirdInterview", label: "三次面接" },
-  { value: "Offer", label: "内定" },
-  { value: "Rejected", label: "不合格" },
-  { value: "Retired", label: "辞退" },
-  { value: "Accepted", label: "承諾" },
-  { value: "NotAccepted", label: "不承諾" },
-  { value: "Waiting", label: "未定" },
-  { value: "Other", label: "その他" },
-];
-
-const aspirationLevelOptions = [
-  { value: "High", label: "高" },
-  { value: "Middle", label: "中" },
-  { value: "Low", label: "低" },
-];
+import { ApplicationInterface } from "@/types/interfaces/ApplicationInterface";
+import { displayStatus } from "@/types/enums/Applications/Status";
+import { displayAspirationLevel } from "@/types/enums/Applications/AspirationLevel";
 
 interface Props {
   id: string;
-}
-
-interface Application {
-  id: string;
-  companyName: string;
-  status: Status;
-  aspirationLevel: AspirationLevel;
-  applicationRoute: string;
-  workLocation: string;
-  estimatedIncome: number;
-  companyDetail: string;
-  contactEmail: string;
-  contactPhoneNumber: string;
 }
 
 const fetchApplication = async (id: string) => {
@@ -54,20 +22,17 @@ const fetchApplication = async (id: string) => {
 };
 
 export const ApplicationDetail = async ({ id }: Props) => {
-  const application: Application = await fetchApplication(id);
+  const application: ApplicationInterface = await fetchApplication(id);
   return (
     <>
       <DataItem title="企業名" size="12">
         {application.companyName || "-"}
       </DataItem>
       <DataItem title="ステータス" size="4">
-        {statusOptions.find((option) => option.value === application.status)
-          ?.label || ""}
+        {displayStatus(application.status)}
       </DataItem>
       <DataItem title="志望度" size="4">
-        {aspirationLevelOptions.find(
-          (option) => option.value === application.aspirationLevel,
-        )?.label || "-"}
+        {displayAspirationLevel(application.aspirationLevel) || "-"}
       </DataItem>
       <DataItem title="応募経路" size="4">
         {application.applicationRoute || "-"}

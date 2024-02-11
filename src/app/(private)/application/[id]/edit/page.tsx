@@ -1,24 +1,11 @@
 import { Container } from "@/components/atoms/Container";
 import { EditForm } from "./EditForm";
-import { AspirationLevel, Status } from "@prisma/client";
+import { ApplicationInterface } from "@/types/interfaces/ApplicationInterface";
 
 interface Params {
   params: {
     id: string;
   };
-}
-
-interface Application {
-  id: string;
-  companyName: string;
-  status: Status;
-  aspirationLevel: AspirationLevel;
-  applicationRoute: string;
-  workLocation: string;
-  estimatedIncome: number;
-  companyDetail: string;
-  contactEmail: string;
-  contactPhoneNumber: string;
 }
 
 const fetchApplication = async (id: string) => {
@@ -35,7 +22,7 @@ const fetchApplication = async (id: string) => {
 };
 
 const EditPage = async ({ params }: Params) => {
-  const application: Application = await fetchApplication(params.id);
+  const application: ApplicationInterface = await fetchApplication(params.id);
 
   return (
     <Container>
