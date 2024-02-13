@@ -26,6 +26,7 @@ export const ConfirmDeleteDialogContent = ({ id }: Props) => {
 
     if (res.status === 201) {
       router.push("/application");
+      router.refresh();
     }
   };
 

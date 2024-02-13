@@ -66,6 +66,7 @@ export const ApplicationForm = () => {
 
     if (res.status === 201) {
       router.push("/application");
+      router.refresh();
     }
 
     if (res.status === 400) {

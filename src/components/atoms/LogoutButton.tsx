@@ -14,6 +14,7 @@ export const LogoutButton = () => {
       alert("ログアウトに失敗しました");
     }
     router.push("/");
+    router.refresh();
   };
 
   return <button onClick={handleLogout}>ログアウト</button>;

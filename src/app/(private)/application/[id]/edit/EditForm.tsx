@@ -46,6 +46,7 @@ export const EditForm = ({ id, application }: Props) => {
 
     if (res.status === 201) {
       router.push(`/application/${id}`);
+      router.refresh();
     }
 
     if (res.status === 400) {
