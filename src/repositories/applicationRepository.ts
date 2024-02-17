@@ -8,6 +8,10 @@ export interface ApplicationRepositoryInterface {
   createApplication: (
     data: Prisma.ApplicationCreateInput,
   ) => Promise<Application>;
+  updateApplication: (
+    id: string,
+    data: Prisma.ApplicationUpdateInput,
+  ) => Promise<void>;
 }
 
 /**
@@ -65,6 +69,26 @@ export const applicationRepository = (): ApplicationRepositoryInterface => {
       });
 
       return result;
+    },
+
+    /**
+     * 応募情報を更新
+     * @param {string} id
+     * @param {Prisma.ApplicationUpdateInput} data
+     * @returns {Promise<void>} void
+     */
+    updateApplication: async (
+      id: string,
+      data: Prisma.ApplicationUpdateInput,
+    ): Promise<void> => {
+      await prisma.application.update({
+        where: {
+          id: id,
+        },
+        data: {
+          ...data,
+        },
+      });
     },
   };
 };

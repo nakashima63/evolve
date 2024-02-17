@@ -6,7 +6,6 @@ import { z } from "zod";
  * 応募情報更新時のバリデーションスキーマ
  */
 export const UpdateApplicationSchema = z.object({
-  id: z.string().uuid({ message: "idが渡されていないか不正な値です" }),
   companyName: z
     .string()
     .max(255, { message: "255文字以内で入力してください" })

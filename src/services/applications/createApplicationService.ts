@@ -4,6 +4,7 @@ import { Application } from "@prisma/client";
 
 /**
  * 応募情報新規登録サービス
+ * @param {Prisma.ApplicationCreateInput} data
  * @param {ApplicationRepositoryInterface} applicationRepository
  * @returns {Promise<void>} result
  */

@@ -1,7 +1,8 @@
-import prisma from "@/libs/prisma/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { Application } from "@prisma/client";
 import { UpdateApplicationSchema } from "@/schemas/Applications/UpdateApplicationSchema";
+import { applicationRepository } from "@/repositories/applicationRepository";
+import { updateApplicationService } from "@/services/applications/updateApplicationService";
+import { UpdateApplicationDto } from "@/dtos/applications/UpdateApplicationDto";
 
 /**
  * 応募情報更新API
@@ -14,7 +15,6 @@ export const PUT = async (req: NextRequest) => {
     const requestBody = await req.json();
     const validatedFields = UpdateApplicationSchema.safeParse({
       ...requestBody,
-      id: id,
     });
 
     if (!validatedFields.success) {
@@ -27,35 +27,13 @@ export const PUT = async (req: NextRequest) => {
       );
     }
 
-    const {
-      companyName,
-      status,
-      aspirationLevel,
-      applicationRoute,
-      workLocation,
-      estimatedIncome,
-      companyDetail,
-      contactEmail,
-      contactPhoneNumber,
-    } = validatedFields.data;
+    const updateApplicationDto = new UpdateApplicationDto(validatedFields.data);
+    await updateApplicationService(
+      id,
+      updateApplicationDto,
+      applicationRepository(),
+    );
 
-    await prisma.application.update({
-      where: {
-        id: id,
-      },
-      data: {
-        companyName: companyName,
-        status: status,
-        aspirationLevel: aspirationLevel,
-        applicationRoute: applicationRoute,
-        workLocation: workLocation,
-        estimatedIncome: estimatedIncome,
-        companyDetail: companyDetail,
-        contactEmail: contactEmail,
-        contactPhoneNumber: contactPhoneNumber,
-        updatedAt: new Date(),
-      } as Application,
-    });
     return NextResponse.json(
       { message: "更新に成功しました", errors: {} },
       { status: 201 },
