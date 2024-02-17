@@ -3,6 +3,7 @@ import { Application } from "@prisma/client";
 
 export interface ApplicationRepositoryInterface {
   findApplicationsByUserId: (userId: string) => Promise<Application[]>;
+  findApplicationById: (id: string) => Promise<Application | null>;
 }
 
 /**
@@ -20,6 +21,14 @@ export const applicationRepository = (): ApplicationRepositoryInterface => {
           deletedAt: null,
         },
         orderBy: [{ updatedAt: "desc" }, { createdAt: "desc" }],
+      });
+    },
+
+    findApplicationById: async (id: string): Promise<Application | null> => {
+      return prisma.application.findUnique({
+        where: {
+          id: id,
+        },
       });
     },
   };

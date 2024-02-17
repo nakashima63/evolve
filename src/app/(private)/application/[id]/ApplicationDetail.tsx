@@ -1,6 +1,6 @@
 import React from "react";
 import { DataItem } from "@/components/molecules/displays/DataItem";
-import { ApplicationInterface } from "@/types/interfaces/ApplicationInterface";
+import { ApplicationDetailDtoInterface } from "@/dtos/applications/ApplicationDetailDto";
 import { displayStatus } from "@/types/enums/Applications/Status";
 import { displayAspirationLevel } from "@/types/enums/Applications/AspirationLevel";
 
@@ -17,22 +17,24 @@ const fetchApplication = async (id: string) => {
       cache: "no-cache",
     },
   );
-  const data = await res.json();
+  const data: { application: ApplicationDetailDtoInterface } = await res.json();
   return data.application;
 };
 
 export const ApplicationDetail = async ({ id }: Props) => {
-  const application: ApplicationInterface = await fetchApplication(id);
+  const application: ApplicationDetailDtoInterface = await fetchApplication(id);
   return (
     <>
       <DataItem title="企業名" size="12">
         {application.companyName || "-"}
       </DataItem>
       <DataItem title="ステータス" size="4">
-        {displayStatus(application.status)}
+        {application.status ? displayStatus(application.status) : "-"}
       </DataItem>
       <DataItem title="志望度" size="4">
-        {displayAspirationLevel(application.aspirationLevel) || "-"}
+        {application.aspirationLevel
+          ? displayAspirationLevel(application.aspirationLevel)
+          : "-"}
       </DataItem>
       <DataItem title="応募経路" size="4">
         {application.applicationRoute || "-"}

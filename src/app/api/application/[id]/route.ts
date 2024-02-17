@@ -1,4 +1,6 @@
-import prisma from "@/libs/prisma/prisma";
+import { applicationRepository } from "@/repositories/applicationRepository";
+import { getApplicationByIdService } from "@/services/applications/getApplicationByIdService";
+import { ApplicationDetailDto } from "@/dtos/applications/ApplicationDetailDto";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -9,28 +11,24 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (req: NextRequest) => {
   try {
     const id = req.url.split("/application/")[1];
-    const application = await prisma.application.findUnique({
-      where: {
-        id: id,
-      },
-      select: {
-        id: true,
-        companyName: true,
-        status: true,
-        aspirationLevel: true,
-        applicationRoute: true,
-        workLocation: true,
-        estimatedIncome: true,
-        companyDetail: true,
-        contactEmail: true,
-        contactPhoneNumber: true,
-      },
-    });
+    const application = await getApplicationByIdService(
+      id,
+      applicationRepository(),
+    );
+
+    if (!application) {
+      return NextResponse.json(
+        { message: "応募情報が取得できませんでした", application: {} },
+        { status: 400 },
+      );
+    }
+
+    const dto = new ApplicationDetailDto(application);
 
     return NextResponse.json(
       {
         message: "応募情報の取得に成功しました",
-        application: application,
+        application: dto,
       },
       { status: 200 },
     );

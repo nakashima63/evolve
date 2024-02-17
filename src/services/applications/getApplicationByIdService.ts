@@ -3,11 +3,11 @@ import { Application } from "@prisma/client";
 
 /**
  * @param {ApplicationRepositoryInterface} applicationRepository
- * @returns {Promise<Application[]>}
+ * @returns {Promise<Application>}
  */
-export const getApplicationsByUserIdService = (
-  userId: string,
+export const getApplicationByIdService = (
+  id: string,
   applicationRepository: ApplicationRepositoryInterface,
-): Promise<Application[]> => {
-  return applicationRepository.findApplicationsByUserId(userId);
+): Promise<Application | null> => {
+  return applicationRepository.findApplicationById(id);
 };
