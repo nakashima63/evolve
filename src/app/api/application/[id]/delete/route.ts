@@ -1,6 +1,7 @@
-import prisma from "@/libs/prisma/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { DeleteApplicationSchema } from "@/schemas/Applications/DeleteApplicationSchema";
+import { applicationRepository } from "@/repositories/applicationRepository";
+import { deleteApplicationService } from "@/services/applications/deleteApplicationService";
 
 /**
  * 応募情報削除API
@@ -22,15 +23,8 @@ export const PUT = async (req: NextRequest) => {
     }
 
     const { id } = validatedFields.data;
+    await deleteApplicationService(id, applicationRepository());
 
-    await prisma.application.update({
-      where: {
-        id: id,
-      },
-      data: {
-        deletedAt: new Date(),
-      },
-    });
     return NextResponse.json(
       { message: "削除に成功しました", errors: {} },
       { status: 201 },

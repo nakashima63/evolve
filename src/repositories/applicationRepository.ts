@@ -12,6 +12,7 @@ export interface ApplicationRepositoryInterface {
     id: string,
     data: Prisma.ApplicationUpdateInput,
   ) => Promise<void>;
+  deleteApplication: (id: string) => Promise<void>;
 }
 
 /**
@@ -87,6 +88,22 @@ export const applicationRepository = (): ApplicationRepositoryInterface => {
         },
         data: {
           ...data,
+        },
+      });
+    },
+
+    /**
+     * 応募情報を削除
+     * @param {string} id
+     * @returns {Promise<void>} void
+     */
+    deleteApplication: async (id: string): Promise<void> => {
+      await prisma.application.update({
+        where: {
+          id: id,
+        },
+        data: {
+          deletedAt: new Date(),
         },
       });
     },

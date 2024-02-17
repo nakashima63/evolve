@@ -1,17 +1,14 @@
 import { ApplicationRepositoryInterface } from "@/repositories/applicationRepository";
-import { Prisma } from "@prisma/client";
 
 /**
- * 応募情報更新サービス
+ * 応募情報削除サービス
  * @param {string} id
- * @param {Prisma.ApplicationUpdateInput} data
  * @param { ApplicationRepositoryInterface } applicationRepository
  * @returns {Promise<void>} void
  */
-export const updateApplicationService = (
+export const deleteApplicationService = (
   id: string,
-  data: Prisma.ApplicationUpdateInput,
   applicationRepository: ApplicationRepositoryInterface,
 ): Promise<void> => {
-  return applicationRepository.updateApplication(id, data);
+  return applicationRepository.deleteApplication(id);
 };
