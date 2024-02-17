@@ -1,7 +1,8 @@
-import prisma from "@/libs/prisma/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { Application } from "@prisma/client";
 import { CreateApplicationSchema } from "@/schemas/Applications/CreateApplicationSchema";
+import { CreateApplicationDto } from "@/dtos/applications/CreateApplicationDto";
+import { applicationRepository } from "@/repositories/applicationRepository";
+import { createApplicationService } from "@/services/applications/createApplicationService";
 
 /**
  * 応募情報登録API
@@ -22,33 +23,20 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    const {
-      userId,
-      companyName,
-      status,
-      aspirationLevel,
-      applicationRoute,
-      workLocation,
-      estimatedIncome,
-      companyDetail,
-      contactEmail,
-      contactPhoneNumber,
-    } = validatedFields.data;
+    const { userId, ...applicationData } = validatedFields.data;
 
-    await prisma.application.create({
-      data: {
-        userId: userId,
-        companyName: companyName,
-        status: status,
-        aspirationLevel: aspirationLevel,
-        applicationRoute: applicationRoute,
-        workLocation: workLocation,
-        estimatedIncome: estimatedIncome,
-        companyDetail: companyDetail,
-        contactEmail: contactEmail,
-        contactPhoneNumber: contactPhoneNumber,
-      } as Application,
-    });
+    const data = {
+      ...applicationData,
+      user: { connect: { id: userId } },
+    };
+
+    const createApplicationDto = new CreateApplicationDto(data);
+
+    await createApplicationService(
+      createApplicationDto,
+      applicationRepository(),
+    );
+
     return NextResponse.json(
       { message: "登録に成功しました", errors: {} },
       { status: 201 },

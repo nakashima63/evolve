@@ -46,7 +46,8 @@ export const CreateApplicationSchema = z.object({
     .string()
     .email({ message: "メールアドレスの形式で入力してください" })
     .optional()
-    .or(z.literal("")),
+    .or(z.literal(""))
+    .default(""),
   contactPhoneNumber: z
     .string()
     .max(20, { message: "20文字以内で入力してください" })
@@ -61,5 +62,6 @@ export const CreateApplicationSchema = z.object({
       message: "電話番号の形式で入力してください",
     })
     .optional()
-    .or(z.literal("")),
+    .or(z.literal(""))
+    .default(""),
 });
