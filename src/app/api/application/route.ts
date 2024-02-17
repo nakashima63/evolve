@@ -1,4 +1,6 @@
-import prisma from "@/libs/prisma/prisma";
+import { applicationRepository } from "@/repositories/applicationRepository";
+import { getApplicationsByUserIdService } from "@/services/applications/getApplicationsByUserIdService";
+import { ApplicationIndexDto } from "@/dtos/applications/ApplicationIndexDto";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -12,36 +14,29 @@ export const GET = async (req: NextRequest) => {
     const userId = url.searchParams.get("userId");
     if (!userId) {
       return NextResponse.json(
-        { message: "ユーザーが取得できませんでした", applications: [] },
+        { message: "ユーザーが取得できませんでした", applicationIndexDtos: [] },
         { status: 400 },
       );
     }
 
-    const applications = await prisma.application.findMany({
-      where: {
-        userId: userId,
-        deletedAt: null,
-      },
-      orderBy: [{ updatedAt: "desc" }, { createdAt: "desc" }],
-      select: {
-        id: true,
-        companyName: true,
-        status: true,
-        workLocation: true,
-        applicationRoute: true,
-      },
-    });
+    const applications = await getApplicationsByUserIdService(
+      userId,
+      applicationRepository(),
+    );
+    const applicationIndexDtos = applications.map(
+      (application) => new ApplicationIndexDto(application),
+    );
 
     return NextResponse.json(
       {
         message: "応募情報一覧の取得に成功しました",
-        applications: applications,
+        applicationIndexDtos: applicationIndexDtos,
       },
       { status: 200 },
     );
   } catch (error) {
     return NextResponse.json(
-      { message: "応募情報一覧の取得に失敗しました", applications: [] },
+      { message: "応募情報一覧の取得に失敗しました", applicationIndexDtos: [] },
       { status: 500 },
     );
   }

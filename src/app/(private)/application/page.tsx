@@ -1,6 +1,6 @@
 import { Container } from "@/components/atoms/Container";
 import { ButtonLink } from "@/components/molecules/ButtonLink";
-import { ApplicationIndex } from "./ApplicationIndex";
+import { ApplicationsIndex } from "./ApplicationsIndex";
 
 const IndexPage = () => {
   return (
@@ -9,7 +9,7 @@ const IndexPage = () => {
         <h1 className="mb-4">応募情報一覧</h1>
         <ButtonLink label="応募情報を追加する" href="application/add" />
       </div>
-      <ApplicationIndex />
+      <ApplicationsIndex />
     </Container>
   );
 };

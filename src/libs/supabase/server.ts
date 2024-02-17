@@ -1,4 +1,5 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
 export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
@@ -27,4 +28,10 @@ export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
       },
     },
   );
+};
+
+export const buildClient = async (): Promise<SupabaseClient> => {
+  const cookieStore = cookies();
+  const supabase = await createClient(cookieStore);
+  return supabase;
 };
