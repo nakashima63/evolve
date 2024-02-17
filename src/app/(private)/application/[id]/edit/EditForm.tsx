@@ -5,7 +5,7 @@ import { Box } from "@/components/atoms/Box";
 import { Button } from "@/components/atoms/Button";
 import { ApplicationForm } from "@/components/organisms/applications/ApplicationForm";
 import { useRouter } from "next/navigation";
-import { ApplicationInterface } from "@/types/interfaces/ApplicationInterface";
+import { ApplicationDetailDtoInterface } from "@/dtos/applications/ApplicationDetailDto";
 
 interface FormErrors {
   errors: {
@@ -24,7 +24,7 @@ interface FormErrors {
 
 interface Props {
   id: string;
-  application: ApplicationInterface;
+  application: ApplicationDetailDtoInterface;
 }
 
 export const EditForm = ({ id, application }: Props) => {

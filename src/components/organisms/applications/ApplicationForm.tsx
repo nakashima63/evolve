@@ -1,7 +1,7 @@
 import { FormItem } from "@/components/molecules/forms/FormItem";
 import { InputForm } from "@/components/atoms/InputForm";
 import { FormError } from "@/components/molecules/forms/FormError";
-import { AspirationLevel, Status } from "@prisma/client";
+import { ApplicationDetailDtoInterface } from "@/dtos/applications/ApplicationDetailDto";
 
 const statusOptions = [
   { value: "InformationGathering", label: "情報収集中" },
@@ -39,21 +39,8 @@ interface FormErrors {
   };
 }
 
-interface Application {
-  id: string;
-  companyName: string;
-  status: Status;
-  aspirationLevel: AspirationLevel;
-  applicationRoute: string;
-  workLocation: string;
-  estimatedIncome: number;
-  companyDetail: string;
-  contactEmail: string;
-  contactPhoneNumber: string;
-}
-
 interface Props {
-  application?: Application;
+  application?: ApplicationDetailDtoInterface;
   formErrors: FormErrors;
   type: "add" | "edit";
 }
@@ -78,7 +65,7 @@ export const ApplicationForm = ({ application, formErrors, type }: Props) => {
           id={`${type}-form-status`}
           name="status"
           className="border border-gray-300 rounded-md w-full p-2"
-          defaultValue={application?.status}
+          defaultValue={application?.status ?? "InformationGathering"}
         >
           {statusOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -96,7 +83,7 @@ export const ApplicationForm = ({ application, formErrors, type }: Props) => {
           id={`${type}-form-aspirationLevel`}
           name="aspirationLevel"
           className="border border-gray-300 rounded-md w-full p-2"
-          defaultValue={application?.aspirationLevel}
+          defaultValue={application?.aspirationLevel ?? "Middle"}
         >
           {aspirationLevelOptions.map((option) => (
             <option key={option.value} value={option.value}>

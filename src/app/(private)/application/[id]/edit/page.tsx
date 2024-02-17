@@ -1,6 +1,6 @@
 import { Container } from "@/components/atoms/Container";
 import { EditForm } from "./EditForm";
-import { ApplicationInterface } from "@/types/interfaces/ApplicationInterface";
+import { ApplicationDetailDtoInterface } from "@/dtos/applications/ApplicationDetailDto";
 
 interface Params {
   params: {
@@ -22,7 +22,9 @@ const fetchApplication = async (id: string) => {
 };
 
 const EditPage = async ({ params }: Params) => {
-  const application: ApplicationInterface = await fetchApplication(params.id);
+  const application: ApplicationDetailDtoInterface = await fetchApplication(
+    params.id,
+  );
 
   return (
     <Container>
