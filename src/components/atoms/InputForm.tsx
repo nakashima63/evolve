@@ -4,6 +4,7 @@ interface Props {
   name: string;
   placeholder?: string;
   required?: boolean;
+  defaultValue?: string;
 }
 
 export const InputForm = ({
@@ -11,6 +12,7 @@ export const InputForm = ({
   type,
   name,
   placeholder,
+  defaultValue,
   required = false,
 }: Props) => {
   return (
@@ -21,6 +23,7 @@ export const InputForm = ({
       className="border border-gray-300 rounded-md w-full p-2"
       placeholder={placeholder}
       required={required}
+      defaultValue={defaultValue}
     />
   );
 };

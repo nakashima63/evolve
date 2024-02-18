@@ -16,11 +16,51 @@ model Profile {
   id        String   @id @db.Uuid
   role      Role     @default(USER)
   name      String   @db.VarChar(40) @default("未設定")
+  applications Application[]
   createdAt DateTime @default(now())
-  createdBy String?   @db.Uuid
   updatedAt DateTime @default(now())
-  updatedBy String?   @db.Uuid
   deletedAt DateTime?
 
   @@map("profile")
+}
+
+enum Status {
+  InformationGathering
+  Applied
+  FirstInterview
+  SecondInterview
+  ThirdInterview
+  Offer
+  Rejected
+  Retired
+  Accepted
+  NotAccepted
+  Waiting
+  Other
+}
+
+enum AspirationLevel {
+  High
+  Middle
+  Low
+}
+
+model Application {
+  id     String   @id @db.Uuid @default(uuid())
+  user   Profile  @relation(fields: [userId], references: [id])
+  userId    String @db.Uuid
+  companyName String @db.VarChar(255)
+  status Status?
+  aspirationLevel AspirationLevel?
+  applicationRoute String @db.VarChar(255) @default("")
+  workLocation String @db.VarChar(255) @default("")
+  estimatedIncome Int?
+  companyDetail String @default("")
+  contactEmail String @db.VarChar(255) @default("")
+  contactPhoneNumber String @db.VarChar(255) @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  deletedAt DateTime?
+
+  @@map("application")
 }
