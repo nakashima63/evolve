@@ -1,4 +1,4 @@
-import { AuthForm } from "@/components/templates/AuthForm";
+import { AuthForm } from "@/components/organisms/AuthForm";
 
 const LoginPage = () => {
   return <AuthForm pageType="login" />;

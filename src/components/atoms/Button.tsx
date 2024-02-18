@@ -1,3 +1,5 @@
+import cn from "classnames";
+
 interface Props {
   type?: "button" | "submit";
   label: string;
@@ -6,15 +8,19 @@ interface Props {
 }
 
 export const Button = ({ type, label, className, onClick }: Props) => {
-  const buttonStyle = {
-    primary:
-      "text-sm text-green-600 border border-green-600 border-solid hover:bg-green-600 hover:text-white w-20 h-10 p-2 rounded-md justify-center items-center flex shrink-0",
-    secondary: "",
-    danger: "",
-  };
+  const buttonColor = cn({
+    "text-green-600 border-green-600 hover:bg-green-600":
+      className === "primary",
+    "text-sky-600 border-sky-600 hover:bg-sky-600": className === "secondary",
+    "text-red-600 border-red-600 hover:bg-red-600": className === "danger",
+  });
 
   return (
-    <button type={type} className={buttonStyle[className]} onClick={onClick}>
+    <button
+      type={type}
+      className={`${buttonColor} text-sm border border-solid hover:text-white min-w-20 h-10 p-2 rounded-md justify-center items-center flex shrink-0`}
+      onClick={onClick}
+    >
       {label}
     </button>
   );
