@@ -1,6 +1,7 @@
 import { PlusButton } from "@/components/atoms/PlusButton";
 import { CheckBox } from "@/components/atoms/CheckBox";
 import { TodoIndexDtoInterface } from "@/dtos/applications/todos/TodoIndexDto";
+import { displayTaskStatus } from "@/types/enums/Applications/todos/TaskStatus";
 
 interface Props {
   id: string;
@@ -33,8 +34,9 @@ export const TodoList = async ({ id }: Props) => {
             <thead className="text-green-600 text-left border-b border-zinc-300">
               <tr>
                 <th className="w-1/12"></th>
-                <th className="w-4/12">タスク</th>
+                <th className="w-2/12">タスク</th>
                 <th className="w-3/12">期限</th>
+                <th className="w-2/12">状態</th>
                 <th className="w-4/12">備考</th>
               </tr>
             </thead>
@@ -46,6 +48,7 @@ export const TodoList = async ({ id }: Props) => {
                   </td>
                   <td className="pt-2">{todo.taskName}</td>
                   <td className="pt-2">{todo.dueDate}</td>
+                  <td className="pt-2">{displayTaskStatus(todo.status)}</td>
                   <td className="pt-2">{todo.note}</td>
                 </tr>
               ))}

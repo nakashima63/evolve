@@ -1,4 +1,4 @@
-import { TaskStatus as PrismaTaskStatus } from "@prisma/client";
+import { taskStatus as PrismaTaskStatus } from "@prisma/client";
 
 export type TaskStatus = PrismaTaskStatus;
 
