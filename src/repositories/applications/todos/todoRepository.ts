@@ -1,8 +1,9 @@
 import prisma from "@/libs/prisma/prisma";
-import { Todo } from "@prisma/client";
+import { Prisma, Todo } from "@prisma/client";
 
 export interface TodoRepositoryInterface {
   findTodosByApplicationId: (applicationId: string) => Promise<Todo[]>;
+  createTodo: (data: Prisma.TodoCreateInput) => Promise<Todo>;
 }
 
 /**
@@ -25,6 +26,21 @@ export const todoRepository = (): TodoRepositoryInterface => {
           deletedAt: null,
         },
         orderBy: [{ updatedAt: "desc" }, { createdAt: "desc" }],
+      });
+
+      return result;
+    },
+
+    /**
+     * Todoを新規登録
+     * @param {Prisma.TodoCreateInput} data
+     * @returns {Promise<Todo>} result
+     */
+    createTodo: async (data: Prisma.TodoCreateInput): Promise<Todo> => {
+      const result: Todo = await prisma.todo.create({
+        data: {
+          ...data,
+        },
       });
 
       return result;
