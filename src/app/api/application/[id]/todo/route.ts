@@ -1,7 +1,6 @@
 import { todoRepository } from "@/repositories/applications/todos/todoRepository";
 import { getTodosByApplicationIdService } from "@/services/todos/getTodosByApplicationIdService";
 import { TodoIndexDto } from "@/dtos/applications/todos/TodoIndexDto";
-
 import { NextRequest, NextResponse } from "next/server";
 
 /**
