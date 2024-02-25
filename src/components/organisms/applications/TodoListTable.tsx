@@ -1,33 +1,14 @@
-import { PlusButton } from "@/components/atoms/PlusButton";
 import { CheckBox } from "@/components/atoms/CheckBox";
 import { TodoIndexDtoInterface } from "@/dtos/applications/todos/TodoIndexDto";
 import { displayTaskStatus } from "@/types/enums/Applications/todos/TaskStatus";
 
 interface Props {
-  id: string;
+  todos: TodoIndexDtoInterface[];
 }
 
-const fetchTodos = async (id: string) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/application/${id}/todo`,
-    {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      cache: "no-cache",
-    },
-  );
-  const data: { todos: TodoIndexDtoInterface[] } = await res.json();
-  return data.todos;
-};
-
-export const TodoList = async ({ id }: Props) => {
-  const todos: TodoIndexDtoInterface[] = await fetchTodos(id);
+export const TodoListTable = async ({ todos }: Props) => {
   return (
-    <div className="border border-green-600 border-solid rounded-md mt-4">
-      <div className="border bg-green-600 border-solid rounded-md p-2 flex justify-between items-center">
-        <div className="text-white">TODO</div>
-        <PlusButton />
-      </div>
+    <>
       {todos.length > 0 ? (
         <div className="p-2">
           <table className="w-full">
@@ -60,6 +41,6 @@ export const TodoList = async ({ id }: Props) => {
           登録されているタスクはありません。
         </div>
       )}
-    </div>
+    </>
   );
 };

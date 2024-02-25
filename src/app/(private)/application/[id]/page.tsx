@@ -3,7 +3,7 @@ import { Box } from "@/components/atoms/Box";
 import { ButtonLink } from "@/components/molecules/ButtonLink";
 import { ApplicationDetail } from "./ApplicationDetail";
 import { ConfirmDeleteDialog } from "./(delete)/Dialog/ConfirmDeleteDialog";
-import { TodoList } from "./TodoList";
+import { TodoListSection } from "./TodoListSection";
 
 interface Params {
   params: {
@@ -24,7 +24,7 @@ const DetailPage = ({ params }: Params) => {
           </div>
         </Box>
       </div>
-      <TodoList id={params.id} />
+      <TodoListSection id={params.id} />
     </Container>
   );
 };
