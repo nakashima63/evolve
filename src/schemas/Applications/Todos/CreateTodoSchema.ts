@@ -5,19 +5,27 @@ import { taskStatus } from "@prisma/client";
  * Todo登録時のバリデーションスキーマ
  */
 export const CreateTodoSchema = z.object({
-  applicationId: z.string(),
   taskName: z
     .string()
     .max(255, { message: "255文字以内で入力してください" })
     .default(""),
   dueDate: z
-    .date()
-    .nullable()
-    .refine(
-      (val) => {
-        return val === null || val >= new Date();
+    .preprocess(
+      (arg) => {
+        if (typeof arg === "string") {
+          return new Date(arg);
+        }
+        return arg;
       },
-      { message: "未来の日付を入力してください" },
+      z
+        .date()
+        .nullable()
+        .refine(
+          (val) => {
+            return val === null || val >= new Date();
+          },
+          { message: "未来の日付を入力してください" },
+        ),
     )
     .default(null),
   status: z

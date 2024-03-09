@@ -1,11 +1,12 @@
+import { useState } from "react";
 import { TodoIndexDtoInterface } from "@/dtos/applications/todos/TodoIndexDto";
 import { Drawer } from "@/components/molecules/displays/Drawer";
 import { InputForm } from "@/components/atoms/InputForm";
 import { SelectForm } from "@/components/molecules/forms/SelectForm";
+import { FormError } from "@/components/molecules/forms/FormError";
 import { taskStatusOptions } from "@/types/enums/Applications/todos/TaskStatus";
 import { FormItem } from "@/components/molecules/forms/FormItem";
 import { Button } from "@/components/atoms/Button";
-import { taskStatus } from "@prisma/client";
 
 interface Props {
   targetTodo: TodoIndexDtoInterface | null;
@@ -14,31 +15,51 @@ interface Props {
   updateTodos: (newTodo: TodoIndexDtoInterface) => void;
 }
 
+interface FormErrors {
+  errors: {
+    taskName?: string[] | undefined;
+    dueDate?: string[] | undefined;
+    status?: string[] | undefined;
+    note?: string[] | undefined;
+  };
+}
+
 export const TodoFormDrawer = ({
   targetTodo,
   isOpen,
   updateIsOpen,
   updateTodos,
 }: Props) => {
+  const [formErrors, setFormErrors] = useState<FormErrors>({ errors: {} });
+  const applicationId = window.location.pathname.split("/application/")[1];
   const handleOnClose = () => {
     updateIsOpen(false);
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setFormErrors({ errors: {} });
     const formElement = e.currentTarget as HTMLFormElement;
     const formData = new FormData(formElement);
-    formData.append("applicationId", "7794168e-d51f-4694-82bf-8bc4366cc6d7");
-    const id = "7794168e-d51f-4694-82bf-8bc4366cc6d7";
 
-    const newTodo = {
-      id: id,
-      taskName: "taskName",
-      dueDate: "2022-01-01",
-      status: taskStatus.Completed,
-      note: "note",
-    };
-    updateTodos(newTodo);
-    updateIsOpen(false);
+    const res = await fetch(`/api/application/${applicationId}/todo/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Object.fromEntries(formData)),
+    });
+
+    if (res.status === 201) {
+      const successRes = await res.json();
+      const newTodo = successRes.todo;
+      updateTodos(newTodo);
+
+      updateIsOpen(false);
+    }
+
+    if (res.status === 400) {
+      const errorRes = await res.json();
+      setFormErrors({ errors: errorRes.errors });
+    }
   };
 
   return (
@@ -50,6 +71,10 @@ export const TodoFormDrawer = ({
             name="taskName"
             defaultValue={targetTodo?.taskName}
           />
+          <FormError
+            formId="taskName"
+            errors={formErrors.errors?.taskName?.flat() ?? []}
+          />
         </FormItem>
         <FormItem formId="dueDate" label="期限" size="12">
           <InputForm
@@ -57,6 +82,10 @@ export const TodoFormDrawer = ({
             type="datetime-local"
             name="dueDate"
             defaultValue={targetTodo?.dueDate}
+          />
+          <FormError
+            formId="dueDate"
+            errors={formErrors.errors?.dueDate?.flat() ?? []}
           />
         </FormItem>
         <FormItem formId="status" label="状態" size="12">
@@ -66,9 +95,17 @@ export const TodoFormDrawer = ({
             options={taskStatusOptions}
             defaultValue={targetTodo?.status}
           />
+          <FormError
+            formId="status"
+            errors={formErrors.errors?.status?.flat() ?? []}
+          />
         </FormItem>
         <FormItem formId="note" label="備考" size="12">
           <InputForm id="note" name="note" defaultValue={targetTodo?.note} />
+          <FormError
+            formId="note"
+            errors={formErrors.errors?.note?.flat() ?? []}
+          />
         </FormItem>
         <div className="col-span-12 flex justify-center">
           <Button type="submit" label="登録" className="primary" />

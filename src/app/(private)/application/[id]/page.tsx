@@ -26,16 +26,17 @@ const fetchTodos = async (id: string) => {
 };
 
 const DetailPage = async ({ params }: Params) => {
-  const todos = await fetchTodos(params.id);
+  const applicationId = params.id;
+  const todos = await fetchTodos(applicationId);
   return (
     <Container>
       <div className="py-4">
         <h1>応募情報詳細</h1>
         <Box>
-          <ApplicationDetail id={params.id} />
+          <ApplicationDetail id={applicationId} />
           <div className="col-span-12 flex justify-center gap-x-4">
-            <ButtonLink label="編集" href={`${params.id}/edit`} />
-            <ConfirmDeleteDialog id={params.id} />
+            <ButtonLink label="編集" href={`${applicationId}/edit`} />
+            <ConfirmDeleteDialog id={applicationId} />
           </div>
         </Box>
       </div>
