@@ -4,6 +4,7 @@ import { Prisma, Todo } from "@prisma/client";
 export interface TodoRepositoryInterface {
   findTodosByApplicationId: (applicationId: string) => Promise<Todo[]>;
   createTodo: (data: Prisma.TodoCreateInput) => Promise<Todo>;
+  updateTodo: (id: string, data: Prisma.TodoUpdateInput) => Promise<Todo>;
 }
 
 /**
@@ -25,7 +26,11 @@ export const todoRepository = (): TodoRepositoryInterface => {
           applicationId: applicationId,
           deletedAt: null,
         },
-        orderBy: [{ updatedAt: "desc" }, { createdAt: "desc" }],
+        orderBy: [
+          { dueDate: "asc" },
+          { createdAt: "asc" },
+          { updatedAt: "asc" },
+        ],
       });
 
       return result;
@@ -38,6 +43,28 @@ export const todoRepository = (): TodoRepositoryInterface => {
      */
     createTodo: async (data: Prisma.TodoCreateInput): Promise<Todo> => {
       const result: Todo = await prisma.todo.create({
+        data: {
+          ...data,
+        },
+      });
+
+      return result;
+    },
+
+    /**
+     * Todoを更新
+     * @param {string} id
+     * @param {Prisma.TodoUpdateInput}
+     * @returns {Promise<Todo>} result
+     */
+    updateTodo: async (
+      id: string,
+      data: Prisma.TodoUpdateInput,
+    ): Promise<Todo> => {
+      const result: Todo = await prisma.todo.update({
+        where: {
+          id: id,
+        },
         data: {
           ...data,
         },

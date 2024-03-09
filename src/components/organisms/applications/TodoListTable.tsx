@@ -5,7 +5,7 @@ import { PlusButton } from "@/components/atoms/PlusButton";
 interface Props {
   todos: TodoIndexDtoInterface[];
   updateIsOpen: (bool: boolean) => void;
-  updateTargetTodo: (todo: TodoIndexDtoInterface) => void;
+  updateTargetTodo: (todo: TodoIndexDtoInterface | null) => void;
 }
 
 export const TodoListTable = ({
@@ -42,7 +42,12 @@ export const TodoListTable = ({
             <tbody className="text-zinc-500">
               {todos.map((todo, index) => (
                 <tr key={index}>
-                  <td className="pt-2">{todo.taskName}</td>
+                  <td
+                    className="pt-2 hover:underline"
+                    onClick={() => handleOnClick(todo)}
+                  >
+                    {todo.taskName}
+                  </td>
                   <td className="pt-2">{todo.dueDate}</td>
                   <td className="pt-2">{displayTaskStatus(todo.status)}</td>
                   <td className="pt-2">{todo.note}</td>

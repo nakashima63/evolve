@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TodoIndexDtoInterface } from "@/dtos/applications/todos/TodoIndexDto";
 import { Drawer } from "@/components/molecules/displays/Drawer";
 import { InputForm } from "@/components/atoms/InputForm";
@@ -13,6 +13,7 @@ interface Props {
   isOpen: boolean;
   updateIsOpen: (bool: boolean) => void;
   updateTodos: (newTodo: TodoIndexDtoInterface) => void;
+  updateTargetTodo: (todo: TodoIndexDtoInterface | null) => void;
 }
 
 interface FormErrors {
@@ -29,30 +30,46 @@ export const TodoFormDrawer = ({
   isOpen,
   updateIsOpen,
   updateTodos,
+  updateTargetTodo,
 }: Props) => {
   const [formErrors, setFormErrors] = useState<FormErrors>({ errors: {} });
-  const applicationId = window.location.pathname.split("/application/")[1];
-  const handleOnClose = () => {
+  const [applicationId, setApplicationId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const path = window.location.pathname.split("/application/")[1];
+    setApplicationId(path);
+  }, []);
+
+  const handleOnClose = (): void => {
+    updateTargetTodo(null);
     updateIsOpen(false);
   };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     setFormErrors({ errors: {} });
+
     const formElement = e.currentTarget as HTMLFormElement;
     const formData = new FormData(formElement);
 
-    const res = await fetch(`/api/application/${applicationId}/todo/add`, {
-      method: "POST",
+    const endpoint = targetTodo
+      ? `/api/application/${applicationId}/todo/${targetTodo.id}/edit`
+      : `/api/application/${applicationId}/todo/add`;
+
+    const method = targetTodo ? "PUT" : "POST";
+
+    console.log("hogehoge");
+    const res = await fetch(endpoint, {
+      method: method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(Object.fromEntries(formData)),
     });
 
-    if (res.status === 201) {
+    if (res.status === 201 || res.status === 200) {
       const successRes = await res.json();
       const newTodo = successRes.todo;
-      updateTodos(newTodo);
 
+      updateTodos(newTodo);
       updateIsOpen(false);
     }
 
@@ -108,7 +125,11 @@ export const TodoFormDrawer = ({
           />
         </FormItem>
         <div className="col-span-12 flex justify-center">
-          <Button type="submit" label="登録" className="primary" />
+          <Button
+            type="submit"
+            label={targetTodo ? "更新" : "登録"}
+            className="primary"
+          />
         </div>
       </form>
     </Drawer>
