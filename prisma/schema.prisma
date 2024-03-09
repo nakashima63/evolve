@@ -61,6 +61,27 @@ model Application {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   deletedAt DateTime?
+  todos Todo[]
 
   @@map("application")
+}
+
+enum taskStatus {
+  NotStarted
+  InProgress
+  Completed
+}
+model Todo {
+  id String @id @db.Uuid @default(uuid())
+  applicationId String @db.Uuid
+  taskName String @db.VarChar(255) @default("")
+  dueDate DateTime?
+  status taskStatus @default(NotStarted)
+  note String @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  application Application @relation(fields: [applicationId], references: [id])
+
+  @@map("todo")
 }
