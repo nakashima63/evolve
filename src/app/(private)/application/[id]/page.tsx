@@ -4,6 +4,7 @@ import { ButtonLink } from "@/components/molecules/ButtonLink";
 import { ApplicationDetail } from "./ApplicationDetail";
 import { ConfirmDeleteDialog } from "./(delete)/Dialog/ConfirmDeleteDialog";
 import { TodoListSection } from "./TodoListSection";
+import { TodoIndexDtoInterface } from "@/dtos/applications/todos/TodoIndexDto";
 
 interface Params {
   params: {
@@ -11,7 +12,21 @@ interface Params {
   };
 }
 
-const DetailPage = ({ params }: Params) => {
+const fetchTodos = async (id: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/application/${id}/todo`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-cache",
+    },
+  );
+  const data: { todos: TodoIndexDtoInterface[] } = await res.json();
+  return data.todos;
+};
+
+const DetailPage = async ({ params }: Params) => {
+  const todos = await fetchTodos(params.id);
   return (
     <Container>
       <div className="py-4">
@@ -24,7 +39,7 @@ const DetailPage = ({ params }: Params) => {
           </div>
         </Box>
       </div>
-      <TodoListSection id={params.id} />
+      <TodoListSection todos={todos} />
     </Container>
   );
 };

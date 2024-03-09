@@ -9,12 +9,7 @@ export const CreateTodoSchema = z.object({
   taskName: z
     .string()
     .max(255, { message: "255文字以内で入力してください" })
-    .refine(
-      (value) => {
-        return Boolean(value.trim().length);
-      },
-      { message: "タスク名を入力してください" },
-    ),
+    .default(""),
   dueDate: z
     .date()
     .nullable()
@@ -23,12 +18,14 @@ export const CreateTodoSchema = z.object({
         return val === null || val >= new Date();
       },
       { message: "未来の日付を入力してください" },
-    ),
+    )
+    .default(null),
   status: z
     .nativeEnum(taskStatus)
     .refine((val) => Object.values(taskStatus).includes(val), {
       message: "存在しないステータスが選択されています",
-    }),
+    })
+    .default(taskStatus.NotStarted),
   note: z
     .string()
     .max(2000, { message: "2000文字以内で入力してください" })

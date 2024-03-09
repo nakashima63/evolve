@@ -2,7 +2,7 @@ import { taskStatus as PrismaTaskStatus } from "@prisma/client";
 
 export type TaskStatus = PrismaTaskStatus;
 
-const taskStatusOptions = [
+export const taskStatusOptions = [
   { value: "NotStarted", label: "未着手" },
   { value: "InProgress", label: "進行中" },
   { value: "Completed", label: "完了" },
