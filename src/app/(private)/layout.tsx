@@ -1,30 +1,41 @@
+"use client";
+
 import React from "react";
-import { createClient } from "@/libs/supabase/server";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface Props {
   children: React.ReactNode;
 }
 
-const PrivateLayout = async ({ children }: Props) => {
-  const cookieStore = cookies();
-  const fetchClient = async () => {
-    const supabase = await createClient(cookieStore);
-    return supabase;
+const PrivateLayout = ({ children }: Props) => {
+  const router = useRouter();
+
+  const validateAuth = async (): Promise<boolean> => {
+    const endpoint = `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/validate`;
+    const res = await fetch(endpoint, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-cache",
+    });
+
+    if (res.status !== 200) {
+      return false;
+    }
+
+    return true;
   };
 
-  const fetchUser = async () => {
-    const client = await fetchClient();
-    const {
-      data: { user },
-    } = await client.auth.getUser();
-    return user;
-  };
+  try {
+    const isAuth = validateAuth();
+    console.log("認証情報の取得に成功しました!");
 
-  const authUser = await fetchUser();
-  if (!authUser) {
-    redirect("/login");
+    if (!isAuth) {
+      router.push("/login");
+    }
+  } catch (error) {
+    console.log("認証情報の取得に失敗しました!");
+    console.error(error);
+    router.push("/login");
   }
 
   return <>{children}</>;
