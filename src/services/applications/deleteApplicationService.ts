@@ -1,4 +1,4 @@
-import { ApplicationRepositoryInterface } from "@/repositories/applicationRepository";
+import { ApplicationRepositoryInterface } from "@/infrastructures/repositories/applicationRepository";
 
 /**
  * 応募情報削除サービス

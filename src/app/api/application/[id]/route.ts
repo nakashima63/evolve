@@ -1,4 +1,4 @@
-import { applicationRepository } from "@/repositories/applicationRepository";
+import { applicationRepository } from "@/infrastructures/repositories/applicationRepository";
 import { getApplicationByIdService } from "@/services/applications/getApplicationByIdService";
 import { ApplicationDetailDto } from "@/dtos/applications/ApplicationDetailDto";
 import { NextRequest, NextResponse } from "next/server";

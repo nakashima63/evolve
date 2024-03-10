@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { UpdateApplicationSchema } from "@/schemas/Applications/UpdateApplicationSchema";
-import { applicationRepository } from "@/repositories/applicationRepository";
+import { applicationRepository } from "@/infrastructures/repositories/applicationRepository";
 import { updateApplicationService } from "@/services/applications/updateApplicationService";
 import { UpdateApplicationDto } from "@/dtos/applications/UpdateApplicationDto";
 

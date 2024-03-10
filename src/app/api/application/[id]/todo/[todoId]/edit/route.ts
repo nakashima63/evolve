@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { todoRepository } from "@/repositories/applications/todos/todoRepository";
+import { todoRepository } from "@/infrastructures/repositories/applications/todos/todoRepository";
 import { UpdateTodoSchema } from "@/schemas/Applications/Todos/UpdateTodoSchema";
-import { updateTodoService } from "@/services/todos/updateTodoService";
+import { updateTodoService } from "@/services/applications/todos/updateTodoService";
 import { UpdateTodoDto } from "@/dtos/applications/todos/UpdateTodoDto";
 import { TodoIndexDto } from "@/dtos/applications/todos/TodoIndexDto";
 
