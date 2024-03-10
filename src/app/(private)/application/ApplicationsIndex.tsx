@@ -17,10 +17,16 @@ const fetchApplicationsByUserId = async (
     },
   );
   console.log("一覧取得後のレスポンス");
+
+  if (res.status === 200) {
+    const data: { applicationIndexDtos: ApplicationIndexDtoInterface[] } =
+      await res.json();
+    return data.applicationIndexDtos;
+  }
+
+  console.log("応募情報一覧取得に失敗しました");
   console.log(res);
-  const data: { applicationIndexDtos: ApplicationIndexDtoInterface[] } =
-    await res.json();
-  return data.applicationIndexDtos;
+  return [];
 };
 
 export const ApplicationsIndex = async () => {
