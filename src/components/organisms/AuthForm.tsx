@@ -2,20 +2,22 @@
 import { Container } from "@/components/atoms/Container";
 import { FormItem } from "@/components/molecules/forms/FormItem";
 import { InputForm } from "@/components/atoms/InputForm";
+import { FormError } from "@/components/molecules/forms/FormError";
 import { Button } from "@/components/atoms/Button";
 import { TextLink } from "@/components/atoms/TextLink";
-import { Register } from "@/libs/actions/register";
-import { Login } from "@/libs/actions/login";
-import { useFormState } from "react-dom";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Props {
   pageType: "register" | "login";
 }
 
-const action = {
-  register: Register,
-  login: Login,
-};
+interface FormErrors {
+  errors: {
+    email?: string[];
+    password?: string[];
+  };
+}
 
 const title = {
   register: "アカウントを作成",
@@ -39,25 +41,48 @@ const link = {
 };
 
 export const AuthForm = ({ pageType }: Props) => {
-  const initialState = { message: "", errors: {} };
-  const [state, dispatch] = useFormState(action[pageType], initialState);
+  const router = useRouter();
+  const [formErrors, setFormErrors] = useState<FormErrors>({ errors: {} });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormErrors({ errors: {} });
+
+    const formElement = e.currentTarget as HTMLFormElement;
+    const formData = new FormData(formElement);
+
+    const endpoint =
+      pageType === "register" ? "/api/auth/register" : "/api/auth/login";
+
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Object.fromEntries(formData)),
+    });
+    console.log("結果を見ます");
+    if (res.status === 200 || res.status === 201) {
+      console.log("ダッシュボードに遷移します");
+      router.push("/dashboard");
+    }
+
+    if (res.status === 500) {
+      const errorRes = await res.json();
+      setFormErrors({ errors: errorRes.errors });
+    }
+  };
 
   return (
     <Container>
       <div className="mt-4">
         <h1 className="text-2xl text-zinc-500">{title[pageType]}</h1>
         <div className="mt-4">
-          {/* TODO: Formコンポーネントに置き換え */}
-          <form action={dispatch} className="flex flex-col space-y-4">
+          <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
             <FormItem formId="email" label="Email">
               <InputForm id="email" name="email" type="email" required />
-              <div id="email-error" aria-live="polite" aria-atomic="true">
-                {state.errors?.email?.flat().map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-              </div>
+              <FormError
+                formId="email"
+                errors={formErrors.errors?.email?.flat() ?? []}
+              />
             </FormItem>
             <FormItem formId="password" label="Password">
               <InputForm
@@ -66,13 +91,10 @@ export const AuthForm = ({ pageType }: Props) => {
                 type="password"
                 required
               />
-              <div id="password-error" aria-live="polite" aria-atomic="true">
-                {state.errors?.password?.flat().map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-              </div>
+              <FormError
+                formId="password"
+                errors={formErrors.errors?.password?.flat() ?? []}
+              />
             </FormItem>
             <div className="flex justify-center">
               <Button
