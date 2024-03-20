@@ -5,6 +5,7 @@ import { taskStatus } from "@prisma/client";
  * Todo登録時のバリデーションスキーマ
  */
 export const CreateTodoSchema = z.object({
+  userId: z.string(),
   taskName: z
     .string()
     .max(255, { message: "255文字以内で入力してください" })

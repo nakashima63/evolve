@@ -7,6 +7,7 @@ import { FormError } from "@/components/molecules/forms/FormError";
 import { taskStatusOptions } from "@/types/enums/Applications/todos/TaskStatus";
 import { FormItem } from "@/components/molecules/forms/FormItem";
 import { Button } from "@/components/atoms/Button";
+import { createClient } from "@/libs/supabase/client";
 
 interface Props {
   targetTodo: TodoIndexDtoInterface | null;
@@ -50,7 +51,9 @@ export const TodoFormDrawer = ({
     setFormErrors({ errors: {} });
 
     const formElement = e.currentTarget as HTMLFormElement;
+    const userId = (await createClient().auth.getUser()).data.user?.id;
     const formData = new FormData(formElement);
+    formData.append("userId", userId ?? "");
 
     const endpoint = targetTodo
       ? `/api/application/${applicationId}/todo/${targetTodo.id}/edit`
@@ -58,7 +61,6 @@ export const TodoFormDrawer = ({
 
     const method = targetTodo ? "PUT" : "POST";
 
-    console.log("hogehoge");
     const res = await fetch(endpoint, {
       method: method,
       headers: { "Content-Type": "application/json" },

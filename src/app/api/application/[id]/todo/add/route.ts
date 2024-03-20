@@ -26,9 +26,13 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
+    const { userId, ...todoData } = validatedFields.data;
+
     const data = {
-      ...validatedFields.data,
+      ...todoData,
       application: { connect: { id: applicationId } },
+      createdBy: userId,
+      updatedBy: userId,
     };
 
     const createTodoDto = new CreateTodoDto(data);
