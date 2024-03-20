@@ -20,7 +20,6 @@ export const TodoListSection = ({ todos: initTodos }: Props) => {
     setIsOpen(bool);
   };
   const updateTodos = (newTodo: TodoIndexDtoInterface): void => {
-    console.log("以下検証以下検証以下検証以下検証");
     setTodos((currentTodos) => {
       const newTodos = currentTodos.map((todo) => {
         if (todo.id === newTodo.id) {

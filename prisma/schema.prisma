@@ -78,7 +78,9 @@ model Todo {
   dueDate DateTime?
   status taskStatus @default(NotStarted)
   note String @default("")
+  createdBy String @db.Uuid @default(uuid())
   createdAt DateTime @default(now())
+  updatedBy String @db.Uuid @default(uuid())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
   application Application @relation(fields: [applicationId], references: [id])
