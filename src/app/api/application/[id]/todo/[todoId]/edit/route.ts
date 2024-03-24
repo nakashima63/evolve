@@ -29,7 +29,13 @@ export const PUT = async (req: NextRequest) => {
       );
     }
 
-    const updateTodoDto = new UpdateTodoDto(validatedFields.data);
+    const { userId, ...todoData } = validatedFields.data;
+    const data = {
+      ...todoData,
+      updatedBy: userId,
+    };
+
+    const updateTodoDto = new UpdateTodoDto(data);
 
     const updatedTodo = await updateTodoService(
       todoId,

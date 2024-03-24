@@ -11,6 +11,10 @@ export class UpdateTodoDto implements Prisma.TodoUpdateInput {
     | undefined;
   readonly status?: TaskStatus | undefined;
   readonly note?: string | undefined;
+  readonly updatedBy?:
+    | string
+    | Prisma.StringFieldUpdateOperationsInput
+    | undefined;
 
   /**
    * @param {Prisma.TodoUpdateInput} data
@@ -19,6 +23,7 @@ export class UpdateTodoDto implements Prisma.TodoUpdateInput {
    * @prop {TaskStatus} status
    * @prop {string} note
    * @prop {Prisma.ApplicationUpdateWithoutTodosInput} application
+   * @prop {string} updatedBy
    */
   constructor(data: Prisma.TodoUpdateInput) {
     this.taskName =
@@ -28,5 +33,7 @@ export class UpdateTodoDto implements Prisma.TodoUpdateInput {
     this.status =
       typeof data.status === "object" ? data.status.set : data.status;
     this.note = typeof data.note === "object" ? data.note.set : data.note;
+    this.updatedBy =
+      typeof data.updatedBy === "object" ? data.updatedBy.set : data.updatedBy;
   }
 }
