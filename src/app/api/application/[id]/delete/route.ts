@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { DeleteApplicationSchema } from "@/schemas/Applications/DeleteApplicationSchema";
-import { applicationRepository } from "@/repositories/applicationRepository";
+import { applicationRepository } from "@/infrastructures/repositories/applicationRepository";
 import { deleteApplicationService } from "@/services/applications/deleteApplicationService";
 
 /**

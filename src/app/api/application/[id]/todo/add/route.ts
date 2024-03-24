@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { CreateTodoSchema } from "@/schemas/Applications/Todos/CreateTodoSchema";
 import { CreateTodoDto } from "@/dtos/applications/todos/CreateTodoDto";
 import { TodoIndexDto } from "@/dtos/applications/todos/TodoIndexDto";
-import { todoRepository } from "@/repositories/applications/todos/todoRepository";
-import { createTodoService } from "@/services/todos/createTodoService";
+import { todoRepository } from "@/infrastructures/repositories/applications/todos/todoRepository";
+import { createTodoService } from "@/services/applications/todos/createTodoService";
 
 /**
  * Todo登録API

@@ -1,4 +1,4 @@
-import { ApplicationRepositoryInterface } from "@/repositories/applicationRepository";
+import { ApplicationRepositoryInterface } from "@/infrastructures/repositories/applicationRepository";
 import { Prisma } from "@prisma/client";
 
 /**

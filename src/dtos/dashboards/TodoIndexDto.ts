@@ -1,43 +1,37 @@
-import { Todo } from "@prisma/client";
-import { TaskStatus } from "@/types/enums/Applications/todos/TaskStatus";
+import { TodoWithApplication } from "@/infrastructures/queryservices/dashboards/dashboardQueryService";
 import { dateTimeFormat } from "@/utils/dateFormat";
 
 /**
- * Todo一覧取得用DTOインターフェース
+ * TODO一覧取得用DTOインターフェース
  * @prop {string} id
  * @prop {string} taskName
  * @prop {string} dueDate
- * @prop {TaskStatus} status
- * @prop {string} note
+ * @prop {string} companyName
  */
 export interface TodoIndexDtoInterface {
   readonly id: string;
   readonly taskName: string;
   readonly dueDate: string;
-  readonly status: TaskStatus | null;
-  readonly note: string;
+  readonly companyName: string;
 }
 
 export class TodoIndexDto implements TodoIndexDtoInterface {
   readonly id: string;
   readonly taskName: string;
   readonly dueDate: string;
-  readonly status: TaskStatus | null;
-  readonly note: string;
+  readonly companyName: string;
 
   /**
-   * @param {Todo} data
+   * @param {TodoWithApplication} data
    * @prop {string} id
    * @prop {string} taskName
    * @prop {Date} dueDate
-   * @prop {status|null} status
-   * @prop {string} note
+   * @prop {string} companyName
    */
-  constructor(data: Todo) {
+  constructor(data: TodoWithApplication) {
     this.id = data.id;
     this.taskName = data.taskName;
     this.dueDate = data.dueDate ? dateTimeFormat(data.dueDate) : "";
-    this.status = data.status;
-    this.note = data.note;
+    this.companyName = data.application.companyName;
   }
 }

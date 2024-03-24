@@ -49,7 +49,11 @@ export const TodoListTable = ({
                     {todo.taskName}
                   </td>
                   <td className="pt-2">{todo.dueDate}</td>
-                  <td className="pt-2">{displayTaskStatus(todo.status)}</td>
+                  <td className="pt-2">
+                    {todo.status !== null
+                      ? displayTaskStatus(todo.status)
+                      : "-"}
+                  </td>
                   <td className="pt-2">{todo.note}</td>
                 </tr>
               ))}

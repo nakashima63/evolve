@@ -112,7 +112,7 @@ export const TodoFormDrawer = ({
             id="status"
             name="status"
             options={taskStatusOptions}
-            defaultValue={targetTodo?.status}
+            defaultValue={targetTodo?.status ? targetTodo.status : "-"}
           />
           <FormError
             formId="status"

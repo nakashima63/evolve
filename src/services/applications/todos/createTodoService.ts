@@ -1,4 +1,4 @@
-import { TodoRepositoryInterface } from "@/repositories/applications/todos/todoRepository";
+import { TodoRepositoryInterface } from "@/infrastructures/repositories/applications/todos/todoRepository";
 import { Prisma, Todo } from "@prisma/client";
 
 /**

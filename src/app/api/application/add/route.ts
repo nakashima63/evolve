@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CreateApplicationSchema } from "@/schemas/Applications/CreateApplicationSchema";
 import { CreateApplicationDto } from "@/dtos/applications/CreateApplicationDto";
-import { applicationRepository } from "@/repositories/applicationRepository";
+import { applicationRepository } from "@/infrastructures/repositories/applicationRepository";
 import { createApplicationService } from "@/services/applications/createApplicationService";
 
 /**

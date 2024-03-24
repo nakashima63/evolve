@@ -59,9 +59,7 @@ export const AuthForm = ({ pageType }: Props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(Object.fromEntries(formData)),
     });
-    console.log("結果を見ます");
     if (res.status === 200 || res.status === 201) {
-      console.log("ダッシュボードに遷移します");
       router.push("/dashboard");
     }
 
