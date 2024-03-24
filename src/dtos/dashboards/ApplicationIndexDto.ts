@@ -11,14 +11,14 @@ import { Status } from "@/types/enums/Applications/Status";
 export interface ApplicationIndexDtoInterface {
   readonly id: string;
   readonly companyName: string;
-  readonly status: Status;
+  readonly status?: Status;
   readonly applicationRoute: string;
 }
 
 export class ApplicationIndexDto implements ApplicationIndexDtoInterface {
   readonly id: string;
   readonly companyName: string;
-  readonly status: Status;
+  readonly status?: Status;
   readonly applicationRoute: string;
 
   /**
@@ -31,7 +31,7 @@ export class ApplicationIndexDto implements ApplicationIndexDtoInterface {
   constructor(application: Application) {
     this.id = application.id;
     this.companyName = application.companyName;
-    this.status = application.status;
+    this.status = application.status ? application.status : undefined;
     this.applicationRoute = application.applicationRoute;
   }
 }
