@@ -24,9 +24,9 @@ export const dashboardQueryService = (): DashboardQueryServiceInterface => {
       const result = await prisma.todo.findMany({
         where: {
           application: {
-            userId: userId,
             deletedAt: null,
           },
+          createdBy: userId,
           deletedAt: null,
         },
         include: {
