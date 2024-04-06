@@ -16,6 +16,8 @@ export const TodoListTable = ({
   const handleOnClick = (targetTodo?: TodoIndexDtoInterface) => {
     if (targetTodo) {
       updateTargetTodo(targetTodo);
+    } else {
+      updateTargetTodo(null);
     }
     updateIsOpen(true);
   };
