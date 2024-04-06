@@ -13,7 +13,7 @@ interface Props {
   targetTodo: TodoIndexDtoInterface | null;
   isOpen: boolean;
   updateIsOpen: (bool: boolean) => void;
-  updateTodos: (newTodo: TodoIndexDtoInterface) => void;
+  upsertTodos: (newTodo: TodoIndexDtoInterface) => void;
   updateTargetTodo: (todo: TodoIndexDtoInterface | null) => void;
 }
 
@@ -30,7 +30,7 @@ export const TodoFormDrawer = ({
   targetTodo,
   isOpen,
   updateIsOpen,
-  updateTodos,
+  upsertTodos,
   updateTargetTodo,
 }: Props) => {
   const [formErrors, setFormErrors] = useState<FormErrors>({ errors: {} });
@@ -71,7 +71,7 @@ export const TodoFormDrawer = ({
       const successRes = await res.json();
       const newTodo = successRes.todo;
 
-      updateTodos(newTodo);
+      upsertTodos(newTodo);
       updateIsOpen(false);
     }
 

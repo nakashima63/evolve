@@ -19,18 +19,21 @@ export const TodoListSection = ({ todos: initTodos }: Props) => {
   const updateIsOpen = (bool: boolean): void => {
     setIsOpen(bool);
   };
-  const updateTodos = (newTodo: TodoIndexDtoInterface): void => {
-    setTodos((currentTodos) => {
-      const newTodos = currentTodos.map((todo) => {
+  const upsertTodos = (newTodo: TodoIndexDtoInterface): void => {
+    if (todos.find((todo) => todo.id === newTodo.id)) {
+      const newTodos = todos.map((todo) => {
         if (todo.id === newTodo.id) {
           return newTodo;
         }
         return todo;
       });
-
-      return newTodos;
-    });
+      setTodos(newTodos);
+      setTargetTodo(null);
+    } else {
+      setTodos([...todos, newTodo]);
+    }
   };
+
   const updateTargetTodo = (todo: TodoIndexDtoInterface | null): void => {
     setTargetTodo(todo);
   };
@@ -42,7 +45,7 @@ export const TodoListSection = ({ todos: initTodos }: Props) => {
           targetTodo={targetTodo}
           isOpen={isOpen}
           updateIsOpen={updateIsOpen}
-          updateTodos={updateTodos}
+          upsertTodos={upsertTodos}
           updateTargetTodo={updateTargetTodo}
         />
         <TodoListTable
