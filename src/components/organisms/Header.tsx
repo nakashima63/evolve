@@ -35,7 +35,7 @@ export const Header = async () => {
           <HeaderLogo />
           <div className="ml-4 space-x-4">
             <TextLink href="/dashboard" text="ダッシュボード" />
-            <TextLink href="/" text="カレンダー" />
+            <TextLink href="/calendar" text="カレンダー" />
             <TextLink href="/application" text="応募情報管理" />
           </div>
         </div>
