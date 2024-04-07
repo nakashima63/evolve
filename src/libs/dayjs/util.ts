@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 // 指定された月のカレンダー表を生成する関数
 export const generateCalendarForMonth = (
   targetMonth: number = dayjs().month(),
-) => {
+): dayjs.Dayjs[][] => {
   const currentYear = dayjs().year(); // 現在の年
   // 指定月の最初の日の曜日（0=日曜日, 6=土曜日）
   const firstDayOfWeekInMonth = dayjs(
