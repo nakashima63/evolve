@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 
 // 指定された月のカレンダー表を生成する関数
-export const generateCalendarForMonth = (
+export const getMonth = (
   targetMonth: number = dayjs().month(),
 ): dayjs.Dayjs[][] => {
   const currentYear = dayjs().year(); // 現在の年

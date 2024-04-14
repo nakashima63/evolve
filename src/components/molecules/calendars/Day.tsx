@@ -3,10 +3,9 @@ import cn from "classnames";
 
 interface Props {
   day: dayjs.Dayjs;
-  weekIndex: number;
 }
 
-export const Day = ({ day, weekIndex }: Props) => {
+export const Day = ({ day }: Props) => {
   const isToday = day.format("DD-MM-YY") === dayjs().format("DD-MM-YY");
   const dayClass = cn({
     "text-sm p-1 my-1 text-center bg-green-600 text-white rounded-full w-7":
@@ -16,9 +15,7 @@ export const Day = ({ day, weekIndex }: Props) => {
 
   return (
     <div className="border border-gray-200 flex flex-col">
-      <header className="flex flex-col items-center">
-        {/** 一行目に曜日を表示 */}
-        {weekIndex === 0 && <p className="text-sm mt-1">{day.format("ddd")}</p>}
+      <header className="h-20 flex flex-col items-center">
         <p className={dayClass}>{day.format("D")}</p>
       </header>
     </div>
