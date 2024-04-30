@@ -24,7 +24,6 @@ export const CalendarHeader = ({
           <MdChevronRight />
         </span>
       </button>
-      <button className="border rounded py-2 px-4 mr-5">Today</button>
     </div>
   );
 };
