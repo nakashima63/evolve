@@ -5,13 +5,12 @@ import { getMonth } from "@/libs/dayjs/util";
 import CalendarContext from "./CalendarContext";
 
 export const MonthSection = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const { monthIndex } = useContext(CalendarContext);
+  const { monthIndex, todos } = useContext(CalendarContext);
 
   useEffect(() => {
     setCurrentMonth(getMonth(monthIndex));
   }, [monthIndex]);
 
-  return <Month month={currentMonth} />;
+  return <Month month={currentMonth} todos={todos} />;
 };

@@ -1,9 +1,18 @@
 import { createContext } from "react";
+import { Todo } from "@prisma/client";
 
-const CalendarContext = createContext({
+interface ContextInterface {
+  monthIndex: number;
+  setMonthIndex: (index: number) => void;
+  todos: Todo[];
+  setTodos: (todos: Todo[]) => void;
+}
+
+const CalendarContext = createContext<ContextInterface>({
   monthIndex: 0,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setMonthIndex: (index: number) => {},
+  setMonthIndex: () => {},
+  todos: [],
+  setTodos: () => {},
 });
 
 export default CalendarContext;

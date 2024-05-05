@@ -2,6 +2,7 @@ import prisma from "@/libs/prisma/prisma";
 import { Prisma, Todo } from "@prisma/client";
 
 export interface TodoRepositoryInterface {
+  findTodosByUserId: (userId: string) => Promise<Todo[]>;
   findTodosByApplicationId: (applicationId: string) => Promise<Todo[]>;
   createTodo: (data: Prisma.TodoCreateInput) => Promise<Todo>;
   updateTodo: (id: string, data: Prisma.TodoUpdateInput) => Promise<Todo>;
@@ -14,7 +15,28 @@ export interface TodoRepositoryInterface {
 export const todoRepository = (): TodoRepositoryInterface => {
   return {
     /**
-     * 応募情報IDでTodoを全件取得
+     * ユーザごとのTodoを全件取得
+     * @param {string} userId
+     * @returns {Promise<Todo[]>} result
+     */
+    findTodosByUserId: async (userId: string): Promise<Todo[]> => {
+      const result: Todo[] = await prisma.todo.findMany({
+        where: {
+          createdBy: userId,
+          deletedAt: null,
+        },
+        orderBy: [
+          { dueDate: "asc" },
+          { createdAt: "asc" },
+          { updatedAt: "asc" },
+        ],
+      });
+
+      return result;
+    },
+
+    /**
+     * 応募情報ごとのTodoを全件取得
      * @param {string} applicationId
      * @returns {Promise<Todo[]>} result
      */
