@@ -2,23 +2,35 @@
 
 import { TodoIndexDtoInterface } from "@/dtos/applications/todos/TodoIndexDto";
 import { TodoListTable } from "../../../../components/organisms/applications/TodoListTable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TodoFormDrawer } from "@/components/organisms/applications/TodoFormDrawer";
 
 interface Props {
-  todos: TodoIndexDtoInterface[];
+  applicationId: string;
 }
 
-export const TodoListSection = ({ todos: initTodos }: Props) => {
-  const [todos, setTodos] = useState<TodoIndexDtoInterface[]>(initTodos);
+export const TodoListSection = ({ applicationId }: Props) => {
+  const [todos, setTodos] = useState<TodoIndexDtoInterface[] | []>([]);
   const [targetTodo, setTargetTodo] = useState<TodoIndexDtoInterface | null>(
     null,
   );
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    const fetchTodos = async () => {
+      const res = await fetch(`/api/application/${applicationId}/todo`, {
+        method: "GET",
+      });
+      const data = await res.json();
+      setTodos(data.todos);
+    };
+    fetchTodos();
+  }, [applicationId]);
+
   const updateIsOpen = (bool: boolean): void => {
     setIsOpen(bool);
   };
+
   const upsertTodos = (newTodo: TodoIndexDtoInterface): void => {
     if (todos.find((todo) => todo.id === newTodo.id)) {
       const newTodos = todos.map((todo) => {

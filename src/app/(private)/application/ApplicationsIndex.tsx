@@ -2,26 +2,22 @@ import { Tile } from "@/components/organisms/applications/Tile";
 import { ApplicationIndexDtoInterface } from "@/dtos/applications/ApplicationIndexDto";
 import { fetchAuthUser } from "@/libs/supabase/shared/fetchAuthUser";
 import { buildClient } from "@/libs/supabase/server";
+import { getApplicationsByUserIdService } from "@/services/applications/getApplicationsByUserIdService";
+import { applicationRepository } from "@/infrastructures/repositories/applicationRepository";
+import { ApplicationIndexDto } from "@/dtos/applications/ApplicationIndexDto";
 
 const fetchApplicationsByUserId = async (
   userId: string,
 ): Promise<ApplicationIndexDtoInterface[]> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/application?userId=${userId}`,
-    {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      cache: "no-cache",
-    },
+  const applications = await getApplicationsByUserIdService(
+    userId,
+    applicationRepository(),
+  );
+  const ApplicationIndexDtos = applications.map(
+    (application) => new ApplicationIndexDto(application),
   );
 
-  if (res.status === 200) {
-    const data: { applicationIndexDtos: ApplicationIndexDtoInterface[] } =
-      await res.json();
-    return data.applicationIndexDtos;
-  }
-
-  return [];
+  return ApplicationIndexDtos;
 };
 
 export const ApplicationsIndex = async () => {

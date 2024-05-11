@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box } from "@/components/atoms/Box";
 import { Button } from "@/components/atoms/Button";
 import { ApplicationForm } from "@/components/organisms/applications/ApplicationForm";
@@ -24,12 +24,26 @@ interface FormErrors {
 
 interface Props {
   id: string;
-  application: ApplicationDetailDtoInterface;
 }
 
-export const EditForm = ({ id, application }: Props) => {
+export const EditForm = ({ id }: Props) => {
   const router = useRouter();
   const [formErrors, setFormErrors] = useState<FormErrors>({ errors: {} });
+  const [application, setApplication] =
+    useState<ApplicationDetailDtoInterface | null>(null);
+
+  useEffect(() => {
+    const fetchApplication = async () => {
+      const res = await fetch(`/api/application/${id}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-cache",
+      });
+      const data = await res.json();
+      setApplication(data.application);
+    };
+    fetchApplication();
+  }, [id]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
