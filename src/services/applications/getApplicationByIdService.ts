@@ -13,11 +13,13 @@ export const getApplicationByIdService = async (
     const application = await applicationRepository.findApplicationById(id);
 
     if (!application) {
+      console.error("応募情報が取得できませんでした");
       throw new Error("応募情報が取得できませんでした");
     }
 
     return application;
   } catch (error) {
+    console.error("応募情報の取得に失敗しました");
     throw new Error("応募情報の取得に失敗しました");
   }
 };

@@ -15,6 +15,7 @@ export const getTodosByApplicationIdService = (
     const todos = todoRepository.findTodosByApplicationId(applicationId);
     return todos;
   } catch (error) {
+    console.error("TODO一覧の取得に失敗しました");
     throw new Error("TODO一覧の取得に失敗しました");
   }
 };
