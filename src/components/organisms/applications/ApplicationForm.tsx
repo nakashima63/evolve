@@ -40,7 +40,7 @@ interface FormErrors {
 }
 
 interface Props {
-  application?: ApplicationDetailDtoInterface;
+  application: ApplicationDetailDtoInterface | null;
   formErrors: FormErrors;
   type: "add" | "edit";
 }

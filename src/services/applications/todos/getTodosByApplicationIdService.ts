@@ -11,5 +11,12 @@ export const getTodosByApplicationIdService = (
   applicationId: string,
   todoRepository: TodoRepositoryInterface,
 ): Promise<Todo[]> => {
-  return todoRepository.findTodosByApplicationId(applicationId);
+  try {
+    const todos = todoRepository.findTodosByApplicationId(applicationId);
+    return todos;
+  } catch (error) {
+    console.log("TODO一覧の取得に失敗しました");
+    console.error(error);
+    throw new Error("TODO一覧の取得に失敗しました");
+  }
 };

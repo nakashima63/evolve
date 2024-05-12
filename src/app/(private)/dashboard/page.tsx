@@ -4,25 +4,27 @@ import { fetchAuthUser } from "@/libs/supabase/shared/fetchAuthUser";
 import { buildClient } from "@/libs/supabase/server";
 import { TodoSection } from "./TodoSection";
 import { ApplicationSection } from "./ApplicationSection";
+import { getDashboardService } from "@/services/dashboards/getDashboardService";
+import { dashboardQueryService } from "@/infrastructures/queryservices/dashboards/dashboardQueryService";
+import { applicationRepository } from "@/infrastructures/repositories/applicationRepository";
+import { TodoIndexDto } from "@/dtos/dashboards/TodoIndexDto";
+import { ApplicationIndexDto } from "@/dtos/dashboards/ApplicationIndexDto";
 
 const fetchDashboardDataByUserId = async (
   userId: string,
 ): Promise<DashboardInterface> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/dashboard?userId=${userId}`,
-    {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      cache: "no-cache",
-    },
+  const { todos, applications } = await getDashboardService(
+    userId,
+    dashboardQueryService(),
+    applicationRepository(),
   );
 
-  if (res.status === 200) {
-    const data: { dashboard: DashboardInterface } = await res.json();
-    return data.dashboard;
-  }
+  const todoDtos = todos.map((todo) => new TodoIndexDto(todo));
+  const applicationDtos = applications.map(
+    (application) => new ApplicationIndexDto(application),
+  );
 
-  return { todos: [], applications: [] };
+  return { todos: todoDtos, applications: applicationDtos };
 };
 
 const DashboardPage = async () => {
