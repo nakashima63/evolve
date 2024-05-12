@@ -19,7 +19,8 @@ export const getApplicationByIdService = async (
 
     return application;
   } catch (error) {
-    console.error("応募情報の取得に失敗しました");
+    console.log("応募情報の取得に失敗しました");
+    console.error(error);
     throw new Error("応募情報の取得に失敗しました");
   }
 };
