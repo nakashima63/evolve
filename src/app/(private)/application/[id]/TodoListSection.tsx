@@ -20,6 +20,8 @@ export const TodoListSection = ({ applicationId }: Props) => {
     const fetchTodos = async () => {
       const res = await fetch(`/api/application/${applicationId}/todo`, {
         method: "GET",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-cache",
       });
       const data = await res.json();
       setTodos(data.todos);
