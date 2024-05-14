@@ -100,7 +100,7 @@ export const TodoFormDrawer = ({
             id="dueDate"
             type="datetime-local"
             name="dueDate"
-            defaultValue={targetTodo?.dueDate}
+            defaultValue={targetTodo ? new Date(targetTodo.dueDate).toISOString().slice(0, 16) : ''}
           />
           <FormError
             formId="dueDate"
