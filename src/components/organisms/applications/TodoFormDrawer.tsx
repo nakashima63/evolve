@@ -8,6 +8,7 @@ import { taskStatusOptions } from "@/types/enums/Applications/todos/TaskStatus";
 import { FormItem } from "@/components/molecules/forms/FormItem";
 import { Button } from "@/components/atoms/Button";
 import { createClient } from "@/libs/supabase/client";
+import { dateFormatIOS } from "@/utils/dateFormatIOS";
 
 interface Props {
   targetTodo: TodoIndexDtoInterface | null;
@@ -100,7 +101,7 @@ export const TodoFormDrawer = ({
             id="dueDate"
             type="datetime-local"
             name="dueDate"
-            defaultValue={targetTodo ? new Date(targetTodo.dueDate).toISOString().slice(0, 16) : ''}
+            defaultValue={targetTodo ? dateFormatIOS(targetTodo.dueDate) : ""}
           />
           <FormError
             formId="dueDate"
