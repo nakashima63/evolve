@@ -1,9 +1,5 @@
-export const dateTimeFormat = (date: Date): string => {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const hour = date.getHours();
-  const minute = date.getMinutes();
+import dayjs from "dayjs";
 
-  return `${year}/${month}/${day} ${hour}:${minute}`;
+export const dateTimeFormat = (date: Date): string => {
+  return dayjs(date).format("YYYY/MM/DD HH:mm:ss");
 };
