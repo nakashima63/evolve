@@ -61,6 +61,7 @@ export const AuthForm = ({ pageType }: Props) => {
     });
     if (res.status === 200 || res.status === 201) {
       router.push("/dashboard");
+      router.refresh();
     }
 
     if (res.status === 500) {

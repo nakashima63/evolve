@@ -12,7 +12,7 @@ export const DataItem = ({ title, children, size = "12" }: Props) => {
   return (
     <div className={`text-zinc-500 ${sizeClass}`}>
       <div className="font-bold pb-1">{title}</div>
-      <div>{children}</div>
+      <div className="whitespace-pre-wrap">{children}</div>
     </div>
   );
 };
