@@ -14,7 +14,8 @@
     "build-storybook": "storybook build",
     "migrate": "bash ./.bash/migrate.sh",
     "migrate:create-only": "bash ./.bash/migrate-create-only.sh",
-    "migrate:deploy": "bash ./.bash/migrate-deploy.sh"
+    "migrate:deploy": "bash ./.bash/migrate-deploy.sh",
+    "test": "jest --verbose"
   },
   "husky": {
     "hooks": {
@@ -62,6 +63,9 @@
     "@storybook/nextjs": "^7.6.6",
     "@storybook/react": "^7.6.6",
     "@storybook/test": "^7.6.6",
+    "@testing-library/jest-dom": "^6.4.5",
+    "@testing-library/react": "^15.0.7",
+    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -73,6 +77,8 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-storybook": "^0.6.15",
     "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.0",
     "postcss": "^8",
     "prettier": "^3.1.1",
@@ -80,6 +86,7 @@
     "prisma": "^5.8.1",
     "storybook": "^7.6.6",
     "tailwindcss": "^3.3.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

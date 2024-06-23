@@ -21,7 +21,6 @@ const PrivateLayout = ({ children }: Props) => {
     if (res.status !== 200) {
       return false;
     }
-
     return true;
   };
 
